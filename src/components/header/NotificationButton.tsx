@@ -6,7 +6,7 @@ export function NotificationButton(){
     const [selected, setSelected] = useState(false);
     
     return(
-        <button>
+        <button className="hidden md:flex">
             {selected
                 ? <IoMdNotifications
                     size={25}

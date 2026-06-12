@@ -1,18 +1,23 @@
 import { PlaylistCard } from "../components/PlaylistCard";
+import { CreatePlaylistButton } from "../components/leftBoard/CreatePlaylistButton";
 import { SearchBar } from "../components/leftBoard/SearchBar";
 import { SelectionButton } from "../components/leftBoard/SelectionButtons";
+import { mockPlaylists } from "../data/mockPlaylists";
 
 export function LeftBoard(){
     return(
         <div className="h-full flex flex-col items-start justify-start
-        px-4 border-gray-500  border-2 rounded-lg w-1/4 text-gray-300
-        py-2 gap-y-4
+        border-2 rounded-lg w-1/4 text-gray-300
+        py-2 gap-y-2 border-transparent
+        bg-[#121212]
         ">
-            <div className="w-full border-b border-gray-500">
-                <div className="py-4">
-                    <h2>Sua biblioteca</h2>
+            <div className="w-full border-b border-gradient-to-t via-[#121212] 
+            to-black pb-4 px-4 border-transparent">
+                <div className="py-4 justify-between flex items-center">
+                    <h2 className="text-lg font-bold text-white">Sua biblioteca</h2>
+                    <CreatePlaylistButton />
                 </div>
-                <div className="flex justify-between gap-2">
+                <div className="flex justify-start gap-3">
                     <SelectionButton label="Tudo" />
                     <SelectionButton label="Playlist" />
                     <SelectionButton label="Álbuns" />
@@ -22,11 +27,17 @@ export function LeftBoard(){
                     <SearchBar />
                 </div>
             </div>
-            <div className="w-full flex-1">
+            <div className="w-full flex-1 px-4">
                 <div className="flex flex-col items-start justify-start py-2 gap-y-1">
-                    <PlaylistCard />
-                    <PlaylistCard />
-                    <PlaylistCard />
+                    {mockPlaylists.map((playlist) => (
+                        <PlaylistCard
+                            key={playlist.id}
+                            name={playlist.name}
+                            author={playlist.author}
+                            type={playlist.type}
+                            imageUrl={playlist.imageUrl}
+                        />
+                    ))}
                 </div>
             </div>
         </div>

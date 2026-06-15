@@ -1,66 +1,84 @@
 export interface Playlist {
-    id: number;
+    playlist_id: string;
     name: string;
-    author: string;
-    type: string;
-    imageUrl: string;
+    description: string;
+    duration: number;
+    num_music: number;
+    created_at: string;
+    updated_at: string;
 }
 
 export const mockPlaylists: Playlist[] = [
     {
-        id: 1,
+        playlist_id: "c1d2e3f4-0001-4a5b-8c9d-playlist00001",
         name: "Curtindo o Verão",
-        author: "Playlist",
-        type: "Playlist",
-        imageUrl: "https://picsum.photos/seed/verao/64/64",
+        description: "As melhores músicas para aproveitar o verão.",
+        duration: 3120,
+        num_music: 15,
+        created_at: "2024-01-01T10:00:00.000Z",
+        updated_at: "2024-01-01T10:00:00.000Z",
     },
     {
-        id: 2,
+        playlist_id: "c1d2e3f4-0002-4a5b-8c9d-playlist00002",
         name: "Foco Total",
-        author: "Playlist",
-        type: "Playlist",           
-        imageUrl: "https://picsum.photos/seed/foco/64/64",
+        description: "Músicas instrumentais para concentração e produtividade.",
+        duration: 5400,
+        num_music: 24,
+        created_at: "2024-01-02T10:00:00.000Z",
+        updated_at: "2024-01-02T10:00:00.000Z",
     },
     {
-        id: 3,
+        playlist_id: "c1d2e3f4-0003-4a5b-8c9d-playlist00003",
         name: "Saudade dos Anos 2000",
-        author: "Playlist",
-        type: "Playlist",
-        imageUrl: "https://picsum.photos/seed/anos2000/64/64",
+        description: "Os hits que marcaram a virada do milênio.",
+        duration: 4560,
+        num_music: 20,
+        created_at: "2024-01-03T10:00:00.000Z",
+        updated_at: "2024-01-03T10:00:00.000Z",
     },
     {
-        id: 4,
+        playlist_id: "c1d2e3f4-0004-4a5b-8c9d-playlist00004",
         name: "Late Night Vibes",
-        author: "Playlist",
-        type: "Playlist",
-        imageUrl: "https://picsum.photos/seed/latenight/64/64",
+        description: "Trilha perfeita para as madrugadas tranquilas.",
+        duration: 3900,
+        num_music: 18,
+        created_at: "2024-01-04T10:00:00.000Z",
+        updated_at: "2024-01-04T10:00:00.000Z",
     },
     {
-        id: 5,
+        playlist_id: "c1d2e3f4-0005-4a5b-8c9d-playlist00005",
         name: "Workout Mix",
-        author: "Playlist",
-        type: "Playlist",
-        imageUrl: "https://picsum.photos/seed/workout/64/64",
+        description: "Batidas pesadas para manter o ritmo na academia.",
+        duration: 3600,
+        num_music: 16,
+        created_at: "2024-01-05T10:00:00.000Z",
+        updated_at: "2024-01-05T10:00:00.000Z",
     },
     {
-        id: 6,
+        playlist_id: "c1d2e3f4-0006-4a5b-8c9d-playlist00006",
         name: "Músicas para Chover",
-        author: "Playlist",
-        type: "Playlist",
-        imageUrl: "https://picsum.photos/seed/chuva/64/64",
+        description: "Sons melancólicos e relaxantes para dias de chuva.",
+        duration: 4200,
+        num_music: 19,
+        created_at: "2024-01-06T10:00:00.000Z",
+        updated_at: "2024-01-06T10:00:00.000Z",
     },
     {
-        id: 7,
+        playlist_id: "c1d2e3f4-0007-4a5b-8c9d-playlist00007",
         name: "Road Trip",
-        author: "Playlist",
-        type: "Playlist",
-        imageUrl: "https://picsum.photos/seed/roadtrip/64/64",
+        description: "As músicas ideais para uma boa viagem de estrada.",
+        duration: 6000,
+        num_music: 27,
+        created_at: "2024-01-07T10:00:00.000Z",
+        updated_at: "2024-01-07T10:00:00.000Z",
     },
     {
-        id: 8,
+        playlist_id: "c1d2e3f4-0008-4a5b-8c9d-playlist00008",
         name: "Boa Semana",
-        author: "Playlist",
-        type: "Playlist",
-        imageUrl: "https://picsum.photos/seed/semana/64/64",
+        description: "Uma seleção animada para começar a semana com energia.",
+        duration: 3300,
+        num_music: 14,
+        created_at: "2024-01-08T10:00:00.000Z",
+        updated_at: "2024-01-08T10:00:00.000Z",
     },
 ];

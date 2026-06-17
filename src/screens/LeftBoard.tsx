@@ -11,7 +11,7 @@ export function LeftBoard(){
         py-2 gap-y-2 border-transparent
         bg-[#121212]
         ">
-            <div className="w-full border-b border-gradient-to-t via-[#121212] 
+            <div className="w-full border-b border-gradient-to-t via-[#121212]
             to-black pb-4 px-4 border-transparent">
                 <div className="py-4 justify-between flex items-center">
                     <h2 className="text-lg font-bold text-white">Sua biblioteca</h2>
@@ -31,11 +31,8 @@ export function LeftBoard(){
                 <div className="flex flex-col items-start justify-start py-2 gap-y-1">
                     {mockPlaylists.map((playlist) => (
                         <PlaylistCard
-                            key={playlist.id}
+                            key={playlist.playlist_id}
                             name={playlist.name}
-                            author={playlist.author}
-                            type={playlist.type}
-                            imageUrl={playlist.imageUrl}
                         />
                     ))}
                 </div>

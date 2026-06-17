@@ -1,0 +1,91 @@
+export interface Album {
+    album_id: string;
+    album_title: string;
+    release_year: string;
+    artist: string;
+    created_at: string;
+    updated_at: string;
+}
+
+export const mockAlbums: Album[] = [
+    {
+        album_id: "b1c2d3e4-0001-4f6a-8b9c-album0000001",
+        album_title: "After Hours",
+        release_year: "2020",
+        artist: "f1e2d3c4-0001-4b5a-9c8d-artist0000001",
+        created_at: "2024-01-01T10:00:00.000Z",
+        updated_at: "2024-01-01T10:00:00.000Z",
+    },
+    {
+        album_id: "b1c2d3e4-0002-4f6a-8b9c-album0000002",
+        album_title: "Harry's House",
+        release_year: "2022",
+        artist: "f1e2d3c4-0002-4b5a-9c8d-artist0000002",
+        created_at: "2024-01-01T10:00:00.000Z",
+        updated_at: "2024-01-01T10:00:00.000Z",
+    },
+    {
+        album_id: "b1c2d3e4-0003-4f6a-8b9c-album0000003",
+        album_title: "Endless Summer Vacation",
+        release_year: "2023",
+        artist: "f1e2d3c4-0003-4b5a-9c8d-artist0000003",
+        created_at: "2024-01-01T10:00:00.000Z",
+        updated_at: "2024-01-01T10:00:00.000Z",
+    },
+    {
+        album_id: "b1c2d3e4-0004-4f6a-8b9c-album0000004",
+        album_title: "Future Nostalgia",
+        release_year: "2020",
+        artist: "f1e2d3c4-0004-4b5a-9c8d-artist0000004",
+        created_at: "2024-01-01T10:00:00.000Z",
+        updated_at: "2024-01-01T10:00:00.000Z",
+    },
+    {
+        album_id: "b1c2d3e4-0005-4f6a-8b9c-album0000005",
+        album_title: "F*CK LOVE 3+",
+        release_year: "2021",
+        artist: "f1e2d3c4-0005-4b5a-9c8d-artist0000005",
+        created_at: "2024-01-01T10:00:00.000Z",
+        updated_at: "2024-01-01T10:00:00.000Z",
+    },
+    {
+        album_id: "b1c2d3e4-0006-4f6a-8b9c-album0000006",
+        album_title: "Dreamland",
+        release_year: "2020",
+        artist: "f1e2d3c4-0006-4b5a-9c8d-artist0000006",
+        created_at: "2024-01-01T10:00:00.000Z",
+        updated_at: "2024-01-01T10:00:00.000Z",
+    },
+    {
+        album_id: "b1c2d3e4-0007-4f6a-8b9c-album0000007",
+        album_title: "When We All Fall Asleep, Where Do We Go?",
+        release_year: "2019",
+        artist: "f1e2d3c4-0007-4b5a-9c8d-artist0000007",
+        created_at: "2024-01-01T10:00:00.000Z",
+        updated_at: "2024-01-01T10:00:00.000Z",
+    },
+    {
+        album_id: "b1c2d3e4-0008-4f6a-8b9c-album0000008",
+        album_title: "BE",
+        release_year: "2020",
+        artist: "f1e2d3c4-0008-4b5a-9c8d-artist0000008",
+        created_at: "2024-01-01T10:00:00.000Z",
+        updated_at: "2024-01-01T10:00:00.000Z",
+    },
+    {
+        album_id: "b1c2d3e4-0009-4f6a-8b9c-album0000009",
+        album_title: "Lover",
+        release_year: "2019",
+        artist: "f1e2d3c4-0009-4b5a-9c8d-artist0000009",
+        created_at: "2024-01-01T10:00:00.000Z",
+        updated_at: "2024-01-01T10:00:00.000Z",
+    },
+    {
+        album_id: "b1c2d3e4-0010-4f6a-8b9c-album0000010",
+        album_title: "Justice",
+        release_year: "2021",
+        artist: "f1e2d3c4-0010-4b5a-9c8d-artist0000010",
+        created_at: "2024-01-01T10:00:00.000Z",
+        updated_at: "2024-01-01T10:00:00.000Z",
+    },
+];

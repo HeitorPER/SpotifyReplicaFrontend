@@ -10,3 +10,6 @@
     background-color: #3f3f3f;
     border-radius: 9999px;
 }
+.scrollbar-custom::-webkit-scrollbar-corner {
+    background: transparent;
+}

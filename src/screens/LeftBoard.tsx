@@ -1,4 +1,4 @@
-import { PlaylistCard } from "../components/PlaylistCard";
+import { PlaylistCard } from "../components/playlistCards/PlaylistCard";
 import { CreatePlaylistButton } from "../components/leftBoard/CreatePlaylistButton";
 import { SearchBar } from "../components/leftBoard/SearchBar";
 import { SelectionButton } from "../components/SelectionButtons";
@@ -27,8 +27,8 @@ export function LeftBoard(){
                     <SearchBar />
                 </div>
             </div>
-            <div className="w-full flex-1 px-4">
-                <div className="flex flex-col items-start justify-start py-2 gap-y-1">
+            <div className="w-full flex-1 min-h-0 px-4">
+                <div className="h-full flex flex-col items-start justify-start py-2 gap-y-1 scrollbar-custom overflow-y-auto">
                     {mockPlaylists.map((playlist) => (
                         <PlaylistCard
                             key={playlist.playlist_id}

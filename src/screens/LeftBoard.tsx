@@ -1,7 +1,7 @@
 import { PlaylistCard } from "../components/PlaylistCard";
 import { CreatePlaylistButton } from "../components/leftBoard/CreatePlaylistButton";
 import { SearchBar } from "../components/leftBoard/SearchBar";
-import { SelectionButton } from "../components/leftBoard/SelectionButtons";
+import { SelectionButton } from "../components/SelectionButtons";
 import { mockPlaylists } from "../data/mockPlaylists";
 
 export function LeftBoard(){
@@ -17,7 +17,7 @@ export function LeftBoard(){
                     <h2 className="text-lg font-bold text-white">Sua biblioteca</h2>
                     <CreatePlaylistButton />
                 </div>
-                <div className="flex justify-start gap-3">
+                <div className="flex justify-start items-start gap-x-2">
                     <SelectionButton label="Tudo" />
                     <SelectionButton label="Playlist" />
                     <SelectionButton label="Álbuns" />

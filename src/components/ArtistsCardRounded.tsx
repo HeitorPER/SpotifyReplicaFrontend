@@ -5,7 +5,7 @@ interface ArtistsCardProps {
     imageUrl?: string
 }
 
-export function ArtistsCard({ name, imageUrl}: ArtistsCardProps) {
+export function ArtistsCardRounded({ name, imageUrl}: ArtistsCardProps) {
     return (
         <div className="flex flex-col cursor-pointer hover:bg-[#2D2D2D] rounded-lg p-2 w-40">
             <div className="w-full aspect-square rounded-full overflow-hidden mb-2">

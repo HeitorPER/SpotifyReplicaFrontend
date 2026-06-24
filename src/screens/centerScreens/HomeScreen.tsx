@@ -1,25 +1,14 @@
 import { PlaylistCard } from "../../components/playlistCards/PlaylistCard";
 import { PlaylistSquareCard } from "../../components/playlistCards/playlistSquareCard";
-import { ArtistsCard } from "../../components/ArtistsCard";
+import { ArtistsCardRounded } from "../../components/ArtistsCardRounded";
 import { SelectionButton } from "../../components/SelectionButtons";
 import { mockArtists } from "../../data/mockArtists";
 import { mockPlaylists } from "../../data/mockPlaylists"
 import { mockAlbums } from "../../data/mockAlbums";
 import { AlbumCard } from "../../components/AlbunsCard";
+import {Shelf} from "../../components/SelfModel";
 
-interface ShelfProps {
-    label: string
-    children: React.ReactNode
-}
 
-function Shelf({ label, children }: ShelfProps) {
-    return (
-        <div className="flex flex-col gap-y-2">
-            <h2 className="text-white font-semibold text-lg">{label}</h2>
-            <div>{children}</div>
-        </div>
-    )
-}
 
 export default function HomeScreen() {
     return (
@@ -56,7 +45,7 @@ export default function HomeScreen() {
             <Shelf label="Artistas Recentes">
                 <div className="flex gap-x-3">
                     {mockArtists.slice(0, 4).map((artist) => (
-                        <ArtistsCard name={artist.artist_name}/>
+                        <ArtistsCardRounded name={artist.artist_name}/>
                     ))}
                 </div>
             </Shelf>

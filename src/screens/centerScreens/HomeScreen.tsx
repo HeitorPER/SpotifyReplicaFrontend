@@ -29,6 +29,7 @@ export default function HomeScreen() {
                         <PlaylistCard
                             key={playlist.playlist_id}
                             name={playlist.name}
+                            playlistId={playlist.playlist_id}
                             compact
                         />
                     ))}
@@ -38,7 +39,7 @@ export default function HomeScreen() {
             <Shelf label="Suas Playlists">
                 <div className="flex gap-x-3">
                     {mockPlaylists.slice(0, 4).map((playlist) => (
-                        <PlaylistSquareCard name={playlist.name}/>
+                        <PlaylistSquareCard key={playlist.playlist_id} name={playlist.name} playlistId={playlist.playlist_id}/>
                     ))}
                 </div>
             </Shelf>

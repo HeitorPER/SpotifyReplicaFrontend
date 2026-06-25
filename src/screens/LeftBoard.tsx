@@ -33,6 +33,7 @@ export function LeftBoard(){
                         <PlaylistCard
                             key={playlist.playlist_id}
                             name={playlist.name}
+                            playlistId={playlist.playlist_id}
                         />
                     ))}
                 </div>

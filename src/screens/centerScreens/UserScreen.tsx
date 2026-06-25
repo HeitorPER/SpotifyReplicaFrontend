@@ -57,7 +57,7 @@ export default function UserScreen({imageUrl, name}:UserScreenProps){
                 <Shelf label="Playlists publicas">
                     <div className="flex gap-x-3">
                         {mockPlaylists.slice(0,4).map((playlist) => (
-                            <PlaylistSquareCard name={playlist.name}/>
+                            <PlaylistSquareCard key={playlist.playlist_id} name={playlist.name} playlistId={playlist.playlist_id}/>
                         ))}
                     </div>
                 </Shelf>

@@ -5,12 +5,16 @@ interface MusicCardProps {
     artist: string
     explicit?: boolean
     imageUrl?: string
+    trackNumber?: number
 }
 
-export function MusicCard({ title, artist, explicit = false, imageUrl }: MusicCardProps) {
+export function MusicCard({ title, artist, explicit = false, imageUrl, trackNumber }: MusicCardProps) {
     return (
         <div className="flex items-center justify-start gap-2
         rounded-lg hover:bg-[#2D2D2D] cursor-pointer w-full p-2">
+            {trackNumber !== undefined && (
+                <span className="text-gray-400 text-sm w-5 text-right shrink-0">{trackNumber}</span>
+            )}
             <div className="w-12 h-12 shrink-0 rounded overflow-hidden">
                 {imageUrl
                     ? <img src={imageUrl} alt={title} className="w-full h-full object-cover" />

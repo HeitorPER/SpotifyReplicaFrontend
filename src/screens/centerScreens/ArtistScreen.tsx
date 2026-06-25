@@ -11,7 +11,7 @@ interface ArtistScreenProps {
     imageUrl?: string
 }
 
-export default function ArtistScreen({ imageUrl }: ArtistScreenProps) {
+export default function ArtistScreen({  }: ArtistScreenProps) {
     const { artistId } = useParams<{ artistId: string }>()
     const artist = mockArtists.find(a => a.artist_id === artistId)
     const artistSongs = mockSongs.filter(s => s.artist === artistId)

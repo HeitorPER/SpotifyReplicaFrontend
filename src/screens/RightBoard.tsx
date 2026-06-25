@@ -33,6 +33,7 @@ export function RightBoard(){
             <div className="w-full flex-1">
                 <ArtistCard
                     artist_name={artist.artist_name}
+                    artist_id={artist.artist_id}
                     num_listeners={artist.num_listeners}
                     about={artist.about}
                 />

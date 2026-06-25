@@ -25,6 +25,18 @@ export const mockSongs: Song[] = [
         updated_at: "2024-01-01T10:00:00.000Z",
     },
     {
+        music_id: "a1b2c3d4-0011-4e5f-8a9b-000000000011",
+        title: "Starboy",
+        artist: "f1e2d3c4-0001-4b5a-9c8d-artist0000001",
+        album: "b1c2d3e4-0001-4f6a-8b9c-album0000001",
+        duration: 230,
+        explicit: true,
+        release_date: "2016-09-22T00:00:00.000Z",
+        times_listen: 3800000000,
+        created_at: "2024-01-01T10:00:00.000Z",
+        updated_at: "2024-01-01T10:00:00.000Z",
+    },
+    {
         music_id: "a1b2c3d4-0002-4e5f-8a9b-000000000002",
         title: "As It Was",
         artist: "f1e2d3c4-0002-4b5a-9c8d-artist0000002",

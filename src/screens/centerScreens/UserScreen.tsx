@@ -20,7 +20,7 @@ export default function UserScreen({imageUrl, name}:UserScreenProps){
         gap-y-4 border-transparent
         bg-[#121212]
         scrollbar-custom overflow-y-auto">
-           <div className="bg-linear-to-b from-gray-400 to-[#121212] flex w-full items-center gap-x-4 py-6 px-5">
+           <div className="bg-linear-to-t from-gray-600 to-[#121212] flex w-full items-center gap-x-4 py-6 px-5">
                 <div className="size-50 shrink-0 rounded-full overflow-hidden">
                 {imageUrl
                     ? <img src={imageUrl} alt={name} className="w-full h-full object-cover" />
@@ -37,7 +37,7 @@ export default function UserScreen({imageUrl, name}:UserScreenProps){
                 <Shelf label="Artistas mais tocados esse mes">
                     <div className="flex gap-x-3">
                         {mockArtists.slice(0, 4).map((artist) => (
-                            <ArtistsCardRounded name={artist.artist_name}/>
+                            <ArtistsCardRounded key={artist.artist_id} name={artist.artist_name} artistId={artist.artist_id}/>
                         ))}
                     </div>
                 </Shelf>

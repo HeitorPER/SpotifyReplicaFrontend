@@ -45,7 +45,7 @@ export default function HomeScreen() {
             <Shelf label="Artistas Recentes">
                 <div className="flex gap-x-3">
                     {mockArtists.slice(0, 4).map((artist) => (
-                        <ArtistsCardRounded name={artist.artist_name}/>
+                        <ArtistsCardRounded key={artist.artist_id} name={artist.artist_name} artistId={artist.artist_id}/>
                     ))}
                 </div>
             </Shelf>

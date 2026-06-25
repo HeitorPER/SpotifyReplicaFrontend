@@ -1,6 +1,7 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import HomeScreen from "./centerScreens/HomeScreen";
 import UserScreen from "./centerScreens/UserScreen";
+import ArtistScreen from "./centerScreens/ArtistScreen";
 
 export function CenterBoard(){
     return(
@@ -8,8 +9,10 @@ export function CenterBoard(){
         border-transparent rounded-lg w-2/4 text-gray-300
         ">
             <Routes>
+                <Route path="/" element={<Navigate to="/HomeScreen" replace />} />
                 <Route path="/HomeScreen" element={<HomeScreen />} />
                 <Route path="/UserScreen" element={<UserScreen name="Heitor Giometti" playlistNumber={5} />} />
+                <Route path="/ArtistScreen/:artistId" element={<ArtistScreen />}/>
             </Routes>
         </div>
     )

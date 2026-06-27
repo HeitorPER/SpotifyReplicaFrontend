@@ -40,6 +40,7 @@ export default function PlaylistScreen() {
                     {playlistSongs.map((song, index) => (
                         <MusicCard
                             key={song.music_id}
+                            musicId={song.music_id}
                             title={song.title}
                             artist={getArtistName(song.artist)}
                             explicit={song.explicit}

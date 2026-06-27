@@ -44,6 +44,7 @@ export default function ArtistScreen({  }: ArtistScreenProps) {
                             ? artistSongs.slice(0, 5).map((song) => (
                                 <MusicCard
                                     key={song.music_id}
+                                    musicId={song.music_id}
                                     title={song.title}
                                     artist={artist.artist_name}
                                     explicit={song.explicit}
@@ -52,6 +53,7 @@ export default function ArtistScreen({  }: ArtistScreenProps) {
                             : mockSongs.slice(0, 5).map((song) => (
                                 <MusicCard
                                     key={song.music_id}
+                                    musicId={song.music_id}
                                     title={song.title}
                                     artist={artist.artist_name}
                                     explicit={song.explicit}

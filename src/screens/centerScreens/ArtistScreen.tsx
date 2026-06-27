@@ -66,7 +66,7 @@ export default function ArtistScreen({  }: ArtistScreenProps) {
                 <Shelf label="Álbuns">
                     <div className="flex gap-x-3">
                         {artistAlbums.map((album) => (
-                            <AlbumCard key={album.album_id} name={album.album_title} />
+                            <AlbumCard key={album.album_id} name={album.album_title} albumId={album.album_id} />
                         ))}
                     </div>
                 </Shelf>

@@ -1,3 +1,5 @@
+import { useRef } from "react";
+import { useSearchParams } from "react-router-dom";
 import { ArtistCard } from "../components/RightBoard/ArtistCard";
 import { CreditsCard } from "../components/RightBoard/CreditsCard";
 import { MusicImage } from "../components/RightBoard/MusicImage";
@@ -7,8 +9,19 @@ import { mockSongs } from "../data/mockSongs";
 import { NextMusicCard } from "../components/RightBoard/NextMusicCard";
 
 export function RightBoard(){
-    const song = mockSongs[0];
-    const artist = mockArtists[0];
+    const [searchParams] = useSearchParams();
+    const songId = searchParams.get("song");
+    const lastSongRef = useRef(mockSongs[0]);
+
+    if (songId) {
+        const found = mockSongs.find(s => s.music_id === songId);
+        if (found) lastSongRef.current = found;
+    }
+
+    const currentSong = lastSongRef.current;
+    const artist = mockArtists.find(a => a.artist_id === currentSong.artist) ?? mockArtists[0];
+    const currentIndex = mockSongs.findIndex(s => s.music_id === currentSong.music_id);
+    const nextSong = mockSongs[(currentIndex + 1) % mockSongs.length];
 
     return(
         <div className="flex flex-col items-center justify-start px-4
@@ -26,13 +39,14 @@ export function RightBoard(){
             </div>
             <div className="w-full">
                 <MusicImage
-                    title={song.title}
+                    title={currentSong.title}
                     artist={artist.artist_name}
                 />
             </div>
             <div className="w-full flex-1">
                 <ArtistCard
                     artist_name={artist.artist_name}
+                    artist_id={artist.artist_id}
                     num_listeners={artist.num_listeners}
                     about={artist.about}
                 />
@@ -47,9 +61,9 @@ export function RightBoard(){
             </div>
             <div className="w-full">
                 <NextMusicCard
-                    title={mockSongs[1].title}
-                    artist={getArtistName(mockSongs[1].artist)}
-                    explicit={mockSongs[1].explicit}
+                    title={nextSong.title}
+                    artist={getArtistName(nextSong.artist)}
+                    explicit={nextSong.explicit}
                 />
             </div>
         </div>

@@ -1,17 +1,21 @@
+import { Routes, Route, Navigate } from "react-router-dom";
+import HomeScreen from "./centerScreens/HomeScreen";
+import UserScreen from "./centerScreens/UserScreen";
+import ArtistScreen from "./centerScreens/ArtistScreen";
+import PlaylistScreen from "./centerScreens/PlaylistScreen";
+
 export function CenterBoard(){
     return(
-        <div className="flex flex-col items-start justify-start px-4
-        border-gray-500 border-2 rounded-lg w-2/4 text-gray-300
-        "> 
-            <div className="w-full">
-                <h2>Cabeçalho</h2>
-            </div>
-            <div className="w-full flex-1">
-                <h2>Conteúdo</h2>
-                <div>
-
-                </div>
-            </div>
+        <div className="flex flex-col items-start justify-start
+        border-transparent rounded-lg w-2/4 text-gray-300
+        ">
+            <Routes>
+                <Route path="/" element={<Navigate to="/HomeScreen" replace />} />
+                <Route path="/HomeScreen" element={<HomeScreen />} />
+                <Route path="/UserScreen" element={<UserScreen name="Heitor Giometti" playlistNumber={5} />} />
+                <Route path="/ArtistScreen/:artistId" element={<ArtistScreen />}/>
+                <Route path="/PlaylistScreen/:playlistId" element={<PlaylistScreen />}/>
+            </Routes>
         </div>
     )
 }

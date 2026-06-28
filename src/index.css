@@ -13,3 +13,12 @@
 .scrollbar-custom::-webkit-scrollbar-corner {
     background: transparent;
 }
+
+.progress-bar::-webkit-slider-thumb {
+    opacity: 0;
+    transition: opacity 0.15s ease;
+}
+.progress-bar:hover::-webkit-slider-thumb,
+.progress-bar:active::-webkit-slider-thumb {
+    opacity: 1;
+}

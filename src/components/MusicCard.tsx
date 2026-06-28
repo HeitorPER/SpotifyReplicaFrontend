@@ -8,11 +8,12 @@ interface MusicCardProps {
     explicit?: boolean
     imageUrl?: string
     trackNumber?: number
+    contextParam?: string
 }
 
-export function MusicCard({ title, artist, musicId, explicit = false, imageUrl, trackNumber }: MusicCardProps) {
+export function MusicCard({ title, artist, musicId, explicit = false, imageUrl, trackNumber, contextParam }: MusicCardProps) {
     return (
-        <Link to={`?song=${musicId}`} className="w-full">
+        <Link to={`?song=${musicId}${contextParam ?? ""}`} className="w-full">
             <div className="flex items-center justify-start gap-2
             rounded-lg hover:bg-[#2D2D2D] cursor-pointer w-full p-2">
                 {trackNumber !== undefined && (

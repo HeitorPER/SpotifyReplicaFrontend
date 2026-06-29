@@ -99,7 +99,8 @@ export function PlayTimer({ musicId, duration, onNext, onPrev }: PlayTimerProps)
                     max={duration}
                     value={currentTime}
                     onChange={e => setCurrentTime(Number(e.target.value))}
-                    className="progress-bar w-48 h-1 accent-white cursor-pointer"
+                    className="progress-bar w-48 cursor-pointer"
+                    style={{ "--progress": `${(currentTime / duration) * 100}%` } as React.CSSProperties}
                 />
                 <span className="text-xs text-gray-400 w-8">
                     {formatTime(duration)}

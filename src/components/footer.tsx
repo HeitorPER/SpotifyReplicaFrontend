@@ -4,6 +4,7 @@ import { mockSongs } from "../data/mockSongs";
 import { mockPlaylistMusic } from "../data/mockPlaylistMusic";
 import { MusicSmallCard } from "./footer/MusicSmallCard";
 import { PlayTimer } from "./footer/PlayTimer";
+import { Volume } from "./footer/volume";
 import { useRef } from "react";
 
 export function Footer(){
@@ -60,6 +61,7 @@ export function Footer(){
                     />
                 </div>
                 <div>
+                    <Volume/>
                     {/*volume, full screen*/}
                 </div>
 

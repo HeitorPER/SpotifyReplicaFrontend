@@ -5,11 +5,14 @@ import { mockPlaylistMusic } from "../data/mockPlaylistMusic";
 import { MusicSmallCard } from "./footer/MusicSmallCard";
 import { PlayTimer } from "./footer/PlayTimer";
 import { Volume } from "./footer/volume";
-import { useRef } from "react";
+import { useRef, useState } from "react";
+import { FullScreen } from "./footer/FullScreen";
+import { FullMusicScreen } from "../screens/FullMusicScreen";
 
 export function Footer(){
     const [searchParams] = useSearchParams();
     const navigate = useNavigate();
+    const [isFullScreenOpen, setFullScreenOpen] = useState(false);
 
     const songId = searchParams.get("song");
     const playlistId = searchParams.get("playlist");
@@ -38,10 +41,14 @@ export function Footer(){
     }
 
     return(
-        <div className="
-         bg-[#000000] w-full h-100px flex items-center
-         justify-between px-4 py-3">
+        <>
+            {isFullScreenOpen && (
+                <FullMusicScreen
+                    musicId={currentSong.music_id}
+                />
+            )}
 
+            <div className="relative z-50 bg-[#000000] w-full h-100px flex items-center justify-between px-4 py-3">
                 <div>
                     <MusicSmallCard
                         title={currentSong.title}
@@ -60,11 +67,14 @@ export function Footer(){
                         onPrev={currentIndex > 0 ? () => goTo(currentIndex - 1) : undefined}
                     />
                 </div>
-                <div>
+                <div className="flex gap-3 items-center">
                     <Volume/>
-                    {/*volume, full screen*/}
+                    <FullScreen
+                        isOpen={isFullScreenOpen}
+                        onToggle={() => setFullScreenOpen(prev => !prev)}
+                    />
                 </div>
-
-        </div>
+            </div>
+        </>
     )
 }

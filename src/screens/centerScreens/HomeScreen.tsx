@@ -5,7 +5,7 @@ import { SelectionButton } from "../../components/SelectionButtons";
 import { mockArtists } from "../../data/mockArtists";
 import { mockPlaylists } from "../../data/mockPlaylists"
 import { mockAlbums } from "../../data/mockAlbums";
-import { AlbumCard } from "../../components/AlbunsCard";
+import { AlbumCard } from "../../components/albumCards/AlbunsCard";
 import {Shelf} from "../../components/SelfModel";
 
 
@@ -53,7 +53,7 @@ export default function HomeScreen() {
             <Shelf label="Álbuns recentes">
                 <div className="flex gap-x-3">
                     {mockAlbums.slice(0, 4).map((album) => (
-                        <AlbumCard name={album.album_title}/>
+                        <AlbumCard key={album.album_id} name={album.album_title} albumId={album.album_id}/>
                     ))}
                 </div>
             </Shelf>

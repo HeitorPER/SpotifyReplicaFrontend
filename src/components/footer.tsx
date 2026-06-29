@@ -2,6 +2,7 @@ import { useSearchParams, useNavigate } from "react-router-dom";
 import { mockArtists } from "../data/mockArtists";
 import { mockSongs } from "../data/mockSongs";
 import { mockPlaylistMusic } from "../data/mockPlaylistMusic";
+import { mockAlbumMusic } from "../data/mockAlbumMusic"
 import { MusicSmallCard } from "./footer/MusicSmallCard";
 import { PlayTimer } from "./footer/PlayTimer";
 import { Volume } from "./footer/volume";
@@ -16,6 +17,7 @@ export function Footer(){
 
     const songId = searchParams.get("song");
     const playlistId = searchParams.get("playlist");
+    const albumId = searchParams.get("album");
     const lastSongRef = useRef(mockSongs[0]);
 
     if (songId) {
@@ -26,18 +28,24 @@ export function Footer(){
     const currentSong = lastSongRef.current;
     const artist = mockArtists.find(a => a.artist_id === currentSong.artist) ?? mockArtists[0];
 
-    const queue: string[] = playlistId
-        ? mockPlaylistMusic
-            .filter(pm => pm.playlist === playlistId)
-            .map(pm => pm.songs)
-        : [currentSong.music_id];
+        const queue: string[] =
+        playlistId
+            ? mockPlaylistMusic
+                .filter(pm => pm.playlist === playlistId)
+                .map(pm => pm.songs)
+            : albumId
+            ? mockAlbumMusic
+                .filter(pm => pm.album === albumId)
+                .map(pm => pm.songs)
+            : [currentSong.music_id];
 
     const currentIndex = queue.indexOf(currentSong.music_id);
 
     function goTo(index: number) {
         const targetId = queue[index];
         if (!targetId) return;
-        navigate(`?song=${targetId}${playlistId ? `&playlist=${playlistId}` : ""}`);
+        const sourceParam = playlistId ? `&playlist=${playlistId}` : albumId ? `&album=${albumId}` : ""
+        navigate(`?song=${targetId}${sourceParam}`);
     }
 
     return(

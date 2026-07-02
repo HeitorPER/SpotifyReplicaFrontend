@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 import { MusicCard } from "../../components/MusicCard";
 import { Shelf } from "../../components/SelfModel";
 import { ArtistsCardRounded } from "../../components/ArtistsCardRounded";
-import { AlbumCard } from "../../components/albumCards/AlbunsCard";
+import { AlbumCard } from "../../components/albumCards/AlbunsSquareCard";
 import { mockArtists } from "../../data/mockArtists";
 import { mockSongs } from "../../data/mockSongs";
 import { mockAlbums } from "../../data/mockAlbums";

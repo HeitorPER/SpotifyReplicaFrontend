@@ -5,7 +5,7 @@ import { SelectionButton } from "../../components/SelectionButtons";
 import { mockArtists } from "../../data/mockArtists";
 import { mockPlaylists } from "../../data/mockPlaylists"
 import { mockAlbums } from "../../data/mockAlbums";
-import { AlbumCard } from "../../components/albumCards/AlbunsCard";
+import { AlbumCard } from "../../components/albumCards/AlbunsSquareCard";
 import {Shelf} from "../../components/SelfModel";
 
 

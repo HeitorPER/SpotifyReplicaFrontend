@@ -3,6 +3,7 @@ import HomeScreen from "./centerScreens/HomeScreen";
 import UserScreen from "./centerScreens/UserScreen";
 import ArtistScreen from "./centerScreens/ArtistScreen";
 import PlaylistScreen from "./centerScreens/PlaylistScreen";
+import AlbumScreen from "./centerScreens/AlbumScreen";
 
 export function CenterBoard(){
     return(
@@ -15,6 +16,7 @@ export function CenterBoard(){
                 <Route path="/UserScreen" element={<UserScreen name="Heitor Giometti" playlistNumber={5} />} />
                 <Route path="/ArtistScreen/:artistId" element={<ArtistScreen />}/>
                 <Route path="/PlaylistScreen/:playlistId" element={<PlaylistScreen />}/>
+                <Route path="/AlbumScreen/:albumId" element={<AlbumScreen/>}/>
             </Routes>
         </div>
     )

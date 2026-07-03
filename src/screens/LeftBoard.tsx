@@ -3,6 +3,8 @@ import { CreatePlaylistButton } from "../components/leftBoard/CreatePlaylistButt
 import { SearchBar } from "../components/leftBoard/SearchBar";
 import { SelectionButton } from "../components/SelectionButtons";
 import { mockPlaylists } from "../data/mockPlaylists";
+import { AlbumCard } from "../components/albumCards/AlbunsCard";
+import { mockAlbums } from "../data/mockAlbums";
 
 export function LeftBoard(){
     return(
@@ -34,6 +36,13 @@ export function LeftBoard(){
                             key={playlist.playlist_id}
                             name={playlist.name}
                             playlistId={playlist.playlist_id}
+                        />
+                    ))}
+                    {mockAlbums.map((album) => (
+                        <AlbumCard
+                            key={album.album_id}
+                            name={album.album_title}
+                            albumId={album.album_id}
                         />
                     ))}
                 </div>

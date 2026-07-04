@@ -10,7 +10,7 @@ interface ArtistsCardProps {
 export function ArtistsCardRounded({ name, artistId, imageUrl}: ArtistsCardProps) {
     return (
         <Link className="flex flex-col cursor-pointer
-        hover:bg-[#2D2D2D] rounded-lg p-2 w-40"
+        hover:bg-[#2D2D2D] rounded-lg p-2 w-40 shrink-0"
         to={`/ArtistScreen/${artistId}`}>
             <div className="w-full aspect-square rounded-full overflow-hidden mb-2">
                 {imageUrl

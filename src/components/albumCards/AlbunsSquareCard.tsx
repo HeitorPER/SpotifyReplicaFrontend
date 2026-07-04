@@ -9,7 +9,7 @@ interface AlbumCardProps {
 
 export function AlbumCard({ name, albumId, imageUrl }: AlbumCardProps) {
     return (
-        <Link to={`/AlbumScreen/${albumId}`} className="flex flex-col cursor-pointer hover:bg-[#2D2D2D] rounded-lg p-2 w-40">
+        <Link to={`/AlbumScreen/${albumId}`} className="flex flex-col cursor-pointer hover:bg-[#2D2D2D] rounded-lg p-2 w-40 shrink-0">
             <div className="w-full aspect-square rounded overflow-hidden mb-2">
                 {imageUrl
                     ? <img src={imageUrl} alt={name} className="w-full h-full object-cover" />

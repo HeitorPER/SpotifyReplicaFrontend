@@ -34,9 +34,11 @@ export default function UserScreen({imageUrl, name}:UserScreenProps) {
                 <div className="flex flex-col">
                     <h2 className="text-sm text-gray-400">Perfil</h2>
                     <h2 className="font-bold text-5xl">Heitor Giometti</h2>
-                    <div>
+                    <div className="flex gap-x items-center">
                         <h2 className="text-sm text-gray-400">{userPlaylists?.length} playlists publicas</h2>
+                        <div className="w-1 h-1 rounded-full bg-gray-400 mx-2"/>
                         <h2 className="text-sm text-gray-400">{Followers?.length} seguidores</h2>
+                        <div className="w-1 h-1 rounded-full bg-gray-400 mx-2"/>
                         <h2 className="text-sm text-gray-400">{Following?.length} seguindo</h2>
                     </div>
                     

@@ -30,9 +30,9 @@ export default function HomeScreen() {
                 <div className="md:grid md:grid-cols-4 gap-2 grid grid-cols-2">
                     {userPlaylists?.slice(0, 8).map((playlist) => (
                         <PlaylistCard
-                            key={playlist.playlist_id}
+                            key={playlist.id}
                             name={playlist.name}
-                            playlistId={playlist.playlist_id}
+                            playlistId={playlist.id}
                             compact
                         />
                     ))}
@@ -42,7 +42,7 @@ export default function HomeScreen() {
             <Shelf label="Suas Playlists">
                 <div className="flex gap-x-3">
                     {userPlaylists?.slice(0, 4).map((playlist) => (
-                        <PlaylistSquareCard key={playlist.playlist_id} name={playlist.name} playlistId={playlist.playlist_id}/>
+                        <PlaylistSquareCard key={playlist.id} name={playlist.name} playlistId={playlist.id}/>
                     ))}
                 </div>
             </Shelf>

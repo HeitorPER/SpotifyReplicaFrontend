@@ -1,9 +1,12 @@
+import type { Music } from "./Music";
+
 export interface Playlist {
-    playlist_id: string;
+    id: string;
     name: string;
     description: string;
     duration: number;
-    num_music: number;
-    created_at: string;
-    updated_at: string;
+    musicQtd: number;
+    musics?: Music[];
+    createdAt: string;
+    updatedAt: string;
 }

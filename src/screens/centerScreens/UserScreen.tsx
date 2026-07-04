@@ -69,7 +69,7 @@ export default function UserScreen({imageUrl, name}:UserScreenProps) {
                 <Shelf label="Playlists publicas">
                     <div className="flex gap-x-3">
                         {userPlaylists?.slice(0,4).map((playlist) => (
-                            <PlaylistSquareCard key={playlist.playlist_id} name={playlist.name} playlistId={playlist.playlist_id}/>
+                            <PlaylistSquareCard key={playlist.id} name={playlist.name} playlistId={playlist.id}/>
                         ))}
                     </div>
                 </Shelf>

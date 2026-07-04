@@ -24,8 +24,6 @@ export function useFetch<T>(fetchFn: () => Promise<T>, deps: unknown[] = []): Fe
         return () => {
             cancelled = true;
         };
-        // deps controlled by caller, not fetchFn identity
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, deps);
 
     return state;

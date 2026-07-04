@@ -1,21 +1,13 @@
 import { useParams } from "react-router-dom";
 import { ImagePlaceholder } from "../../components/ImagePlaceholder";
 import { MusicCard } from "../../components/MusicCard";
-import { mockPlaylists } from "../../data/mockPlaylists";
-import { mockPlaylistMusic } from "../../data/mockPlaylistMusic";
-import { mockSongs } from "../../data/mockSongs";
 import { getArtistName } from "../../data/mockArtists";
+import * as playlistService from "../../services/PlaylistService";
+import { useFetch } from "../../hooks/useFetch";
 
 export default function PlaylistScreen() {
-    const { playlistId } = useParams<{ playlistId: string }>()
-    const playlist = mockPlaylists.find(p => p.playlist_id === playlistId)
-    const playlistSongIds = mockPlaylistMusic
-        .filter(pm => pm.playlist === playlistId)
-        .map(pm => pm.songs)
-    const playlistSongs = playlistSongIds
-        .map(id => mockSongs.find(s => s.music_id === id))
-        .filter(s => s !== undefined)
-
+    const { playlistId } = useParams<{ playlistId: string }>();
+    const { data: playlist } = useFetch(() => playlistService.getPlaylistById(playlistId as string), [playlistId]);
     if (!playlist) return null
 
     return (
@@ -32,12 +24,12 @@ export default function PlaylistScreen() {
                     <h2 className="text-sm text-gray-400">Playlist</h2>
                     <h2 className="font-bold text-5xl">{playlist.name}</h2>
                     <h2 className="text-sm text-gray-400">{playlist.description}</h2>
-                    <h2 className="text-sm text-gray-400">{playlist.num_music} músicas</h2>
+                    <h2 className="text-sm text-gray-400">{playlist.musicQtd} músicas</h2>
                 </div>
             </div>
             <div className="flex flex-col w-full py-6 px-5">
                 <div className="flex flex-col">
-                    {playlistSongs.map((song, index) => (
+                    {playlist.musics?.map((song, index) => (
                         <MusicCard
                             key={song.music_id}
                             musicId={song.music_id}

@@ -9,6 +9,10 @@ export function getFollowers(): Promise<User[]> {
     return apiFetch<User[]>("/user/followers");
 }
 
+export function getFollowing(): Promise<User[]> {
+    return apiFetch<User[]>("/user/following");
+}
+
 export async function getMostPlayedArtists(): Promise<Artist[]> {
     return apiFetch<Artist[]>("/user/mostPlayedArtists");
 }

@@ -16,7 +16,8 @@ export default function UserScreen({imageUrl, name}:UserScreenProps) {
     const { data: mostPlayedArtists } = useFetch(userService.getMostPlayedArtists);
     const { data: userPlaylists } = useFetch(userService.getPlaylists);
     const { data: mostPlayedMusics } = useFetch(userService.getMostPlayedMusics);
-
+    const { data: Followers } = useFetch(userService.getFollowers);
+    const { data: Following } = useFetch(userService.getFollowing);
     return(
         <div className="h-full w-full flex flex-col items-start
         border-2 rounded-lg text-gray-300
@@ -33,7 +34,12 @@ export default function UserScreen({imageUrl, name}:UserScreenProps) {
                 <div className="flex flex-col">
                     <h2 className="text-sm text-gray-400">Perfil</h2>
                     <h2 className="font-bold text-5xl">Heitor Giometti</h2>
-                    <h2 className="text-sm text-gray-400">{userPlaylists?.length} playlists publicas</h2>
+                    <div>
+                        <h2 className="text-sm text-gray-400">{userPlaylists?.length} playlists publicas</h2>
+                        <h2 className="text-sm text-gray-400">{Followers?.length} seguidores</h2>
+                        <h2 className="text-sm text-gray-400">{Following?.length} seguindo</h2>
+                    </div>
+                    
                 </div>
             </div>
             <div className="flex flex-col w-full py-6 px-5">

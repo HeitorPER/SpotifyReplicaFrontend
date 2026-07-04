@@ -55,12 +55,13 @@ export default function UserScreen({imageUrl, name}:UserScreenProps) {
                 <div>
                     <h2 className="text-lg text-white font-semibold">Músicas mais tocadas esse mês</h2>
                     <div className="flex flex-col">
-                        {mostPlayedMusics?.slice(0, 5).map((song) => (
+                        {mostPlayedMusics?.slice(0, 5).map((song, index) => (
                             <MusicCard
                                 key={song.music_id}
                                 musicId={song.music_id}
                                 title={song.title}
                                 artist={(song.artist)}
+                                trackNumber={index + 1}
                                 explicit={song.explicit}
                             />
                         ))}

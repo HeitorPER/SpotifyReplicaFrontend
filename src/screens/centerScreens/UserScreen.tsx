@@ -40,7 +40,7 @@ export default function UserScreen({imageUrl, name}:UserScreenProps) {
                 <Shelf label="Artistas mais tocados esse mes">
                     <div className="flex gap-x-3">
                         {mostPlayedArtists?.slice(0, 4).map((artist) => (
-                            <ArtistsCardRounded key={artist.artist_id} name={artist.artist_name} artistId={artist.artist_id}/>
+                            <ArtistsCardRounded key={artist.artist_id} name={artist.name} artistId={artist.artist_id}/>
                         ))}
                     </div>
                 </Shelf>

@@ -1,6 +1,6 @@
 export interface Artist {
     artist_id: string;
-    artist_name: string;
+    name: string;
     about: string;
     num_listeners: number;
     created_at: string;

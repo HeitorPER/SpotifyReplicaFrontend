@@ -1,11 +1,4 @@
-export interface Artist {
-    artist_id: string;
-    artist_name: string;
-    about: string;
-    num_listeners: number;
-    created_at: string;
-    updated_at: string;
-}
+import type { Artist } from "../types/Artist";
 
 export function getArtistName(artistId: string): string {
     return mockArtists.find(a => a.artist_id === artistId)?.artist_name ?? artistId;

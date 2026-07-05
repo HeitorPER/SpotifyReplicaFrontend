@@ -26,7 +26,7 @@ export function Footer(){
     }
 
     const currentSong = lastSongRef.current;
-    const artist = mockArtists.find(a => a.artist_id === currentSong.artist) ?? mockArtists[0];
+    const artist = mockArtists.find(a => a.id === currentSong.artist) ?? mockArtists[0];
 
         const queue: string[] =
         playlistId
@@ -60,8 +60,8 @@ export function Footer(){
                 <div>
                     <MusicSmallCard
                         title={currentSong.title}
-                        artist={artist.artist_name}
-                        artistId={artist.artist_id}
+                        artist={artist.name}
+                        artistId={artist.id}
                         musicName={currentSong.title}
                         albumId={currentSong.album}
                         explicit={currentSong.explicit}

@@ -19,7 +19,7 @@ export function RightBoard(){
     }
 
     const currentSong = lastSongRef.current;
-    const artist = mockArtists.find(a => a.artist_id === currentSong.artist) ?? mockArtists[0];
+    const artist = mockArtists.find(a => a.id === currentSong.artist) ?? mockArtists[0];
     const currentIndex = mockSongs.findIndex(s => s.music_id === currentSong.music_id);
     const nextSong = mockSongs[(currentIndex + 1) % mockSongs.length];
 
@@ -30,7 +30,7 @@ export function RightBoard(){
         pb-3
         ">
             <div className="w-full py-4 justify-between flex items-center">
-                <h1 className="text-xl font-bold">{artist.artist_name}</h1>
+                <h1 className="text-xl font-bold">{artist.name}</h1>
                 <button
                 className="text-white text-sm border border-transparent
                 rounded-lg px-3 py-1 hover:bg-gray-700 transition-colors cursor-pointer">
@@ -40,20 +40,20 @@ export function RightBoard(){
             <div className="w-full">
                 <MusicImage
                     title={currentSong.title}
-                    artist={artist.artist_name}
+                    artist={artist.name}
                 />
             </div>
             <div className="w-full flex-1">
                 <ArtistCard
-                    artist_name={artist.artist_name}
-                    artist_id={artist.artist_id}
-                    num_listeners={artist.num_listeners}
+                    artist_name={artist.name}
+                    artist_id={artist.id}
+                    num_listeners={artist.listeners}
                     about={artist.about}
                 />
             </div>
             <div className="w-full flex-1">
                 <CreditsCard
-                    artist_name={artist.artist_name}
+                    artist_name={artist.name}
                 />
             </div>
             <div className="w-full">

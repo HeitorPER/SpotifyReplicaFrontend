@@ -39,8 +39,8 @@ export default function ArtistScreen() {
                         {artistSongs && artistSongs.length > 0
                             ? artistSongs.slice(0, 5).map((song) => (
                                 <MusicCard
-                                    key={song.music_id}
-                                    musicId={song.music_id}
+                                    key={song.id}
+                                    musicId={song.id}
                                     title={song.title}
                                     artist={artist.name}
                                     explicit={song.explicit}
@@ -48,8 +48,8 @@ export default function ArtistScreen() {
                             ))
                             : mockSongs.slice(0, 5).map((song) => (
                                 <MusicCard
-                                    key={song.music_id}
-                                    musicId={song.music_id}
+                                    key={song.id}
+                                    musicId={song.id}
                                     title={song.title}
                                     artist={artist.name}
                                     explicit={song.explicit}
@@ -62,7 +62,7 @@ export default function ArtistScreen() {
                 <Shelf label="Álbuns">
                     <div className="flex gap-x-3">
                         {artistAlbums?.map((album) => (
-                            <AlbumCard key={album.album_id} name={album.title} albumId={album.album_id} />
+                            <AlbumCard key={album.id} name={album.title} albumId={album.id} />
                         ))}
                     </div>
                 </Shelf>

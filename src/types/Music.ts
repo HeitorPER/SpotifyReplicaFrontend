@@ -1,12 +1,13 @@
 export interface Music {
-    music_id: string;
+    id: string;
     title: string;
-    artist: string;
-    album: string;
+    artistId: string;
+    albumId: string;
+    playlistsId: string[];
     duration: number;
     explicit: boolean;
-    release_date: string;
-    times_listen: number;
-    created_at: string;
-    updated_at: string;
+    releaseDate: string;
+    timesListen: number;
+    createdAt: string;
+    updatedAt: string;
 }

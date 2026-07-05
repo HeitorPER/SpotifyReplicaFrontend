@@ -31,10 +31,10 @@ export default function PlaylistScreen() {
                 <div className="flex flex-col">
                     {playlist.musics?.map((song, index) => (
                         <MusicCard
-                            key={song.music_id}
-                            musicId={song.music_id}
+                            key={song.id}
+                            musicId={song.id}
                             title={song.title}
-                            artist={getArtistName(song.artist)}
+                            artist={getArtistName(song.artistId)}
                             explicit={song.explicit}
                             trackNumber={index + 1}
                             contextParam={`&playlist=${playlistId}`}

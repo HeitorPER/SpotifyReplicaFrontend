@@ -56,7 +56,7 @@ export default function HomeScreen() {
             <Shelf label="Álbuns recentes">
                 <div className="flex gap-x-3">
                     {recentAlbums?.slice(0, 4).map((album) => (
-                        <AlbumCard key={album.album_id} name={album.title} albumId={album.album_id}/>
+                        <AlbumCard key={album.id} name={album.title} albumId={album.id}/>
                     ))}
                 </div>
             </Shelf>

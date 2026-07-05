@@ -1,8 +1,12 @@
+import type { Music } from "./Music";
+
 export interface Album {
-    album_id: string;
+    id: string;
     title: string;
-    release_year: string;
-    artist: string;
-    created_at: string;
-    updated_at: string;
+    year: string;
+    artistId: string;
+    artistName: string;
+    musics: Music[];
+    createdAt: string;
+    updatedAt: string;
 }

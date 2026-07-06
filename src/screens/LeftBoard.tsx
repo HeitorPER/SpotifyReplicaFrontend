@@ -3,7 +3,7 @@ import { CreatePlaylistButton } from "../components/leftBoard/CreatePlaylistButt
 import { SearchBar } from "../components/leftBoard/SearchBar";
 import { SelectionButton } from "../components/SelectionButtons";
 import { AlbumCard } from "../components/albumCards/AlbunsCard";
-import * as userService from "../services/userService";
+import * as userService from "../services/UserService";
 import { useFetch } from "../hooks/useFetch";
 
 export function LeftBoard(){

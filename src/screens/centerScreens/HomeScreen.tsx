@@ -5,7 +5,7 @@ import { SelectionButton } from "../../components/SelectionButtons";
 import { AlbumCard } from "../../components/albumCards/AlbunsSquareCard";
 import {Shelf} from "../../components/SelfModel";
 import { useFetch } from "../../hooks/useFetch";
-import * as userService from "../../services/userService.ts"
+import * as userService from "../../services/UserService.ts"
 
 
 

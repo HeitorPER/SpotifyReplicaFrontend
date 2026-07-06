@@ -38,7 +38,7 @@ export default function AlbumScreen() {
                             artist={album.artistName}
                             explicit={song.explicit}
                             trackNumber={index + 1}
-                            contextParam={`&album=${albumId}`}
+                            albumId={albumId}
                         />
                     ))}
                 </div>

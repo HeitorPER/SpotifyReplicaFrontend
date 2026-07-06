@@ -1,13 +1,16 @@
 import { MusicCard } from "../MusicCard";
 
 interface NextMusicCardProps {
+    musicId: string
     title: string
     artist: string
     explicit?: boolean
     imageUrl?: string
+    playlistId?: string
+    albumId?: string
 }
 
-export function NextMusicCard({ title, artist, explicit, imageUrl }: NextMusicCardProps) {
+export function NextMusicCard({ musicId, title, artist, explicit, imageUrl, playlistId, albumId }: NextMusicCardProps) {
     return (
         <div className="flex flex-col items-center justify-start bg-[#1F1F1F]
         border-t border-transparent rounded-lg w-full text-gray-300
@@ -17,10 +20,13 @@ export function NextMusicCard({ title, artist, explicit, imageUrl }: NextMusicCa
             </div>
             <div className="w-full">
                 <MusicCard
+                    musicId={musicId}
                     title={title}
                     artist={artist}
                     explicit={explicit}
                     imageUrl={imageUrl}
+                    playlistId={playlistId}
+                    albumId={albumId}
                 />
             </div>
         </div>

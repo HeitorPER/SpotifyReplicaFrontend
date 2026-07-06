@@ -1,28 +1,20 @@
-import { useSearchParams, useNavigate } from "react-router-dom";
-import { mockArtists } from "../data/mockArtists";
-import { mockSongs } from "../data/mockSongs";
-import { mockPlaylistMusic } from "../data/mockPlaylistMusic";
-import { mockAlbumMusic } from "../data/mockAlbumMusic"
 import { MusicSmallCard } from "./footer/MusicSmallCard";
 import { PlayTimer } from "./footer/PlayTimer";
 import { Volume } from "./footer/volume";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { FullScreen } from "./footer/FullScreen";
 import { FullMusicScreen } from "../screens/FullMusicScreen";
 import { useFetch } from "../hooks/useFetch";
+import { usePlayer } from "../context/PlayerContext";
 import * as musicService from "../services/MusicService";
 import * as artistService from "../services/ArtistService";
 import * as albumService from "../services/AlbumService";
 import * as playlistService from "../services/PlaylistService";
 
 export function Footer(){
-    const [searchParams] = useSearchParams();
-    const navigate = useNavigate();
+    const { songId, playlistId, albumId, play } = usePlayer();
     const [isFullScreenOpen, setFullScreenOpen] = useState(false);
 
-    const songId = searchParams.get("song");
-    const playlistId = searchParams.get("playlist");
-    const albumId = searchParams.get("album");
     const { data: currentSong } = useFetch(
             () => songId ? musicService.getMusicById(songId) : Promise.resolve(null),
             [songId]
@@ -48,22 +40,11 @@ export function Footer(){
         const currentQueueIndex = currentSong
             ? queueMusics.findIndex((m) => m.id === currentSong.id)
             : -1;
-        const nextSong = currentQueueIndex >= 0
-            ? queueMusics[(currentQueueIndex + 1) % queueMusics.length]
-            : undefined;
     
-        const nextArtistId = !album && nextSong ? nextSong.artistId : null;
-        const { data: nextArtist } = useFetch(
-            () => nextArtistId ? artistService.getArtistById(nextArtistId) : Promise.resolve(null),
-            [nextArtistId]
-        );
-        const nextArtistName = album ? album.artistName : nextArtist?.name;
-
     function goTo(index: number) {
         const targetId = queueMusics[index]?.id;
         if (!targetId) return;
-        const sourceParam = playlistId ? `&playlist=${playlistId}` : albumId ? `&album=${albumId}` : ""
-        navigate(`?song=${targetId}${sourceParam}`);
+        play(targetId, { playlistId: playlistId ?? undefined, albumId: albumId ?? undefined });
     }
 
     return(
@@ -74,7 +55,7 @@ export function Footer(){
                         musicId={currentSong?.id}
                     />
                 ) : (
-                    <h2>nada</h2>
+                    <h2 className="flex text-gray-300 justify-center items-center">nenhuma musica tocando no momento</h2>
                 )
             )}
 

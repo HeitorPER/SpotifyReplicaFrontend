@@ -3,24 +3,20 @@ import { MusicCard } from "../../components/MusicCard";
 import { Shelf } from "../../components/SelfModel";
 import { ArtistsCardRounded } from "../../components/ArtistsCardRounded";
 import { AlbumCard } from "../../components/albumCards/AlbunsSquareCard";
-import { mockArtists } from "../../data/mockArtists";
 import { mockSongs } from "../../data/mockSongs";
-import { mockAlbums } from "../../data/mockAlbums";
+import * as artistService from "../../services/ArtistService";
+import { useFetch } from "../../hooks/useFetch";
 
-interface ArtistScreenProps {
-    imageUrl?: string
-}
-
-export default function ArtistScreen({  }: ArtistScreenProps) {
-    const { artistId } = useParams<{ artistId: string }>()
-    const artist = mockArtists.find(a => a.artist_id === artistId)
-    const artistSongs = mockSongs.filter(s => s.artist === artistId)
-    const artistAlbums = mockAlbums.filter(a => a.artist === artistId)
-    const similarArtists = mockArtists.filter(a => a.artist_id !== artistId).slice(0, 4)
+export default function ArtistScreen() {
+    const { artistId } = useParams<{ artistId: string }>();
+    const { data: artist } = useFetch(() => artistService.getArtistById(artistId as string), [artistId]);
+    const {data: artistSongs} = useFetch(() => artistService.getArtistPopularMusics(artistId as string), [artistId]);
+    const {data: artistAlbums} = useFetch(() => artistService.getArtistAlbums(artistId as string), [artistId]);
+    const {data: similarArtists} = useFetch(() => artistService.getSimilarArtists(artistId as string), [artistId]);
 
     if (!artist) return null
 
-    const formattedListeners = artist.num_listeners.toLocaleString("pt-BR")
+    const formattedListeners = artist.listeners.toLocaleString("pt-BR")
 
     return (
         <div className="h-full w-full flex flex-col items-start
@@ -31,7 +27,7 @@ export default function ArtistScreen({  }: ArtistScreenProps) {
             <div className="bg-linear-to-t from-gray-600 to-[#121212] flex w-full items-center gap-x-4 py-6 px-5">
                 <div className="flex flex-col gap-y-1">
                     <h2 className="text-sm text-gray-400">Artista</h2>
-                    <h2 className="font-bold text-5xl">{artist.artist_name}</h2>
+                    <h2 className="font-bold text-5xl">{artist.name}</h2>
                     <h2 className="text-sm text-gray-400">{formattedListeners} ouvintes mensais</h2>
                 </div>
             </div>
@@ -40,22 +36,22 @@ export default function ArtistScreen({  }: ArtistScreenProps) {
                 <div>
                     <h2 className="text-lg text-white font-semibold mb-2">Músicas populares</h2>
                     <div className="flex flex-col">
-                        {artistSongs.length > 0
+                        {artistSongs && artistSongs.length > 0
                             ? artistSongs.slice(0, 5).map((song) => (
                                 <MusicCard
-                                    key={song.music_id}
-                                    musicId={song.music_id}
+                                    key={song.id}
+                                    musicId={song.id}
                                     title={song.title}
-                                    artist={artist.artist_name}
+                                    artist={artist.name}
                                     explicit={song.explicit}
                                 />
                             ))
                             : mockSongs.slice(0, 5).map((song) => (
                                 <MusicCard
-                                    key={song.music_id}
-                                    musicId={song.music_id}
+                                    key={song.id}
+                                    musicId={song.id}
                                     title={song.title}
-                                    artist={artist.artist_name}
+                                    artist={artist.name}
                                     explicit={song.explicit}
                                 />
                             ))
@@ -65,16 +61,16 @@ export default function ArtistScreen({  }: ArtistScreenProps) {
 
                 <Shelf label="Álbuns">
                     <div className="flex gap-x-3">
-                        {artistAlbums.map((album) => (
-                            <AlbumCard key={album.album_id} name={album.album_title} albumId={album.album_id} />
+                        {artistAlbums?.map((album) => (
+                            <AlbumCard key={album.id} name={album.title} albumId={album.id} />
                         ))}
                     </div>
                 </Shelf>
 
                 <Shelf label="Artistas semelhantes">
                     <div className="flex gap-x-3">
-                        {similarArtists.map((a) => (
-                            <ArtistsCardRounded key={a.artist_id} name={a.artist_name} artistId={a.artist_id} />
+                        {similarArtists?.map((a) => (
+                            <ArtistsCardRounded key={a.id} name={a.name} artistId={a.id} />
                         ))}
                     </div>
                 </Shelf>

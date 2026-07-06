@@ -2,11 +2,13 @@ import { PlaylistCard } from "../components/playlistCards/PlaylistCard";
 import { CreatePlaylistButton } from "../components/leftBoard/CreatePlaylistButton";
 import { SearchBar } from "../components/leftBoard/SearchBar";
 import { SelectionButton } from "../components/SelectionButtons";
-import { mockPlaylists } from "../data/mockPlaylists";
 import { AlbumCard } from "../components/albumCards/AlbunsCard";
-import { mockAlbums } from "../data/mockAlbums";
+import * as userService from "../services/UserService";
+import { useFetch } from "../hooks/useFetch";
 
 export function LeftBoard(){
+    const {data:playlists} = useFetch(() => userService.getPlaylists(), [])
+    const {data:albums} = useFetch(() => userService.getRecentAlbums(), [])
     return(
         <div className="h-full flex flex-col items-start justify-start
         border-2 rounded-lg w-1/4 text-gray-300
@@ -31,18 +33,18 @@ export function LeftBoard(){
             </div>
             <div className="w-full flex-1 min-h-0 px-4">
                 <div className="h-full flex flex-col items-start justify-start py-2 gap-y-1 scrollbar-custom overflow-y-auto">
-                    {mockPlaylists.map((playlist) => (
+                    {playlists?.map((playlist) => (
                         <PlaylistCard
-                            key={playlist.playlist_id}
+                            key={playlist.id}
                             name={playlist.name}
-                            playlistId={playlist.playlist_id}
+                            playlistId={playlist.id}
                         />
                     ))}
-                    {mockAlbums.map((album) => (
+                    {albums?.map((album) => (
                         <AlbumCard
-                            key={album.album_id}
-                            name={album.album_title}
-                            albumId={album.album_id}
+                            key={album.id}
+                            name={album.title}
+                            albumId={album.id}
                         />
                     ))}
                 </div>

@@ -2,15 +2,18 @@ import { PlaylistCard } from "../../components/playlistCards/PlaylistCard";
 import { PlaylistSquareCard } from "../../components/playlistCards/playlistSquareCard";
 import { ArtistsCardRounded } from "../../components/ArtistsCardRounded";
 import { SelectionButton } from "../../components/SelectionButtons";
-import { mockArtists } from "../../data/mockArtists";
-import { mockPlaylists } from "../../data/mockPlaylists"
-import { mockAlbums } from "../../data/mockAlbums";
 import { AlbumCard } from "../../components/albumCards/AlbunsSquareCard";
 import {Shelf} from "../../components/SelfModel";
+import { useFetch } from "../../hooks/useFetch";
+import * as userService from "../../services/UserService.ts"
 
 
 
 export default function HomeScreen() {
+    const { data: userPlaylists } = useFetch(userService.getPlaylists);
+    const { data: recentArtists } = useFetch(userService.getRecentArtists);
+    const { data: recentAlbums } = useFetch(userService.getRecentAlbums);
+
     return (
         <div className="h-full w-full flex flex-col items-start
         border-2 rounded-lg text-gray-300
@@ -25,11 +28,11 @@ export default function HomeScreen() {
                     <SelectionButton label="Playlists"/>
                 </div>
                 <div className="md:grid md:grid-cols-4 gap-2 grid grid-cols-2">
-                    {mockPlaylists.slice(0, 8).map((playlist) => (
+                    {userPlaylists?.slice(0, 8).map((playlist) => (
                         <PlaylistCard
-                            key={playlist.playlist_id}
+                            key={playlist.id}
                             name={playlist.name}
-                            playlistId={playlist.playlist_id}
+                            playlistId={playlist.id}
                             compact
                         />
                     ))}
@@ -38,22 +41,22 @@ export default function HomeScreen() {
 
             <Shelf label="Suas Playlists">
                 <div className="flex gap-x-3">
-                    {mockPlaylists.slice(0, 4).map((playlist) => (
-                        <PlaylistSquareCard key={playlist.playlist_id} name={playlist.name} playlistId={playlist.playlist_id}/>
+                    {userPlaylists?.slice(0, 4).map((playlist) => (
+                        <PlaylistSquareCard key={playlist.id} name={playlist.name} playlistId={playlist.id}/>
                     ))}
                 </div>
             </Shelf>
             <Shelf label="Artistas Recentes">
                 <div className="flex gap-x-3">
-                    {mockArtists.slice(0, 4).map((artist) => (
-                        <ArtistsCardRounded key={artist.artist_id} name={artist.artist_name} artistId={artist.artist_id}/>
+                    {recentArtists?.slice(0, 4).map((artist) => (
+                        <ArtistsCardRounded key={artist.id} name={artist.name} artistId={artist.id}/>
                     ))}
                 </div>
             </Shelf>
             <Shelf label="Álbuns recentes">
                 <div className="flex gap-x-3">
-                    {mockAlbums.slice(0, 4).map((album) => (
-                        <AlbumCard key={album.album_id} name={album.album_title} albumId={album.album_id}/>
+                    {recentAlbums?.slice(0, 4).map((album) => (
+                        <AlbumCard key={album.id} name={album.title} albumId={album.id}/>
                     ))}
                 </div>
             </Shelf>

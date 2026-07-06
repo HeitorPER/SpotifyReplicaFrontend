@@ -1,17 +1,6 @@
-export interface Song {
-    music_id: string;
-    title: string;
-    artist: string;
-    album: string;
-    duration: number;
-    explicit: boolean;
-    release_date: string;
-    times_listen: number;
-    created_at: string;
-    updated_at: string;
-}
+import type { Music } from "../types/Music";
 
-export const mockSongs: Song[] = [
+export const mockSongs: Music[] = [
     {
         music_id: "a1b2c3d4-0001-4e5f-8a9b-000000000001",
         title: "Blinding Lights",

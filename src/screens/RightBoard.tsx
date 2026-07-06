@@ -1,27 +1,56 @@
-import { useRef } from "react";
 import { useSearchParams } from "react-router-dom";
 import { ArtistCard } from "../components/RightBoard/ArtistCard";
 import { CreditsCard } from "../components/RightBoard/CreditsCard";
 import { MusicImage } from "../components/RightBoard/MusicImage";
 import { EventsCard } from "../components/RightBoard/EventsCard";
-import { mockArtists, getArtistName } from "../data/mockArtists";
-import { mockSongs } from "../data/mockSongs";
 import { NextMusicCard } from "../components/RightBoard/NextMusicCard";
+import { useFetch } from "../hooks/useFetch";
+import * as musicService from "../services/MusicService";
+import * as artistService from "../services/ArtistService";
+import * as albumService from "../services/AlbumService";
+import * as playlistService from "../services/PlaylistService";
 
 export function RightBoard(){
     const [searchParams] = useSearchParams();
     const songId = searchParams.get("song");
-    const lastSongRef = useRef(mockSongs[0]);
+    const playlistId = searchParams.get("playlist");
+    const albumId = searchParams.get("album");
 
-    if (songId) {
-        const found = mockSongs.find(s => s.music_id === songId);
-        if (found) lastSongRef.current = found;
-    }
+    const { data: currentSong } = useFetch(
+        () => songId ? musicService.getMusicById(songId) : Promise.resolve(null),
+        [songId]
+    );
 
-    const currentSong = lastSongRef.current;
-    const artist = mockArtists.find(a => a.artist_id === currentSong.artist) ?? mockArtists[0];
-    const currentIndex = mockSongs.findIndex(s => s.music_id === currentSong.music_id);
-    const nextSong = mockSongs[(currentIndex + 1) % mockSongs.length];
+    const artistId = currentSong?.artistId ?? null;
+    const { data: artist } = useFetch(
+        () => artistId ? artistService.getArtistById(artistId) : Promise.resolve(null),
+        [artistId]
+    );
+
+    const { data: playlist } = useFetch(
+        () => playlistId ? playlistService.getPlaylistById(playlistId) : Promise.resolve(null),
+        [playlistId]
+    );
+
+    const { data: album } = useFetch(
+        () => albumId ? albumService.getAlbumById(albumId) : Promise.resolve(null),
+        [albumId]
+    );
+
+    const queueMusics = album?.musics ?? playlist?.musics ?? [];
+    const currentQueueIndex = currentSong
+        ? queueMusics.findIndex((m) => m.id === currentSong.id)
+        : -1;
+    const nextSong = currentQueueIndex >= 0
+        ? queueMusics[(currentQueueIndex + 1) % queueMusics.length]
+        : undefined;
+
+    const nextArtistId = !album && nextSong ? nextSong.artistId : null;
+    const { data: nextArtist } = useFetch(
+        () => nextArtistId ? artistService.getArtistById(nextArtistId) : Promise.resolve(null),
+        [nextArtistId]
+    );
+    const nextArtistName = album ? album.artistName : nextArtist?.name;
 
     return(
         <div className="flex flex-col items-center justify-start px-4
@@ -30,7 +59,7 @@ export function RightBoard(){
         pb-3
         ">
             <div className="w-full py-4 justify-between flex items-center">
-                <h1 className="text-xl font-bold">{artist.artist_name}</h1>
+                <h1 className="text-xl font-bold">{artist?.name ?? "Nada tocando"}</h1>
                 <button
                 className="text-white text-sm border border-transparent
                 rounded-lg px-3 py-1 hover:bg-gray-700 transition-colors cursor-pointer">
@@ -39,33 +68,39 @@ export function RightBoard(){
             </div>
             <div className="w-full">
                 <MusicImage
-                    title={currentSong.title}
-                    artist={artist.artist_name}
+                    title={currentSong?.title ?? "Nenhuma música tocando"}
+                    artist={artist?.name ?? ""}
                 />
             </div>
-            <div className="w-full flex-1">
-                <ArtistCard
-                    artist_name={artist.artist_name}
-                    artist_id={artist.artist_id}
-                    num_listeners={artist.num_listeners}
-                    about={artist.about}
-                />
-            </div>
-            <div className="w-full flex-1">
-                <CreditsCard
-                    artist_name={artist.artist_name}
-                />
-            </div>
+            {currentSong && artist && (
+                <div className="w-full flex-1">
+                    <ArtistCard
+                        artist_name={artist.name}
+                        artist_id={artist.id}
+                        num_listeners={artist.listeners}
+                        about={artist.about}
+                    />
+                </div>
+            )}
+            {currentSong && artist && (
+                <div className="w-full flex-1">
+                    <CreditsCard
+                        artist_name={artist.name}
+                    />
+                </div>
+            )}
             <div className="w-full">
                 <EventsCard/>
             </div>
-            <div className="w-full">
-                <NextMusicCard
-                    title={nextSong.title}
-                    artist={getArtistName(nextSong.artist)}
-                    explicit={nextSong.explicit}
-                />
-            </div>
+            {nextSong && nextArtistName && (
+                <div className="w-full">
+                    <NextMusicCard
+                        title={nextSong.title}
+                        artist={nextArtistName}
+                        explicit={nextSong.explicit}
+                    />
+                </div>
+            )}
         </div>
     )
 }

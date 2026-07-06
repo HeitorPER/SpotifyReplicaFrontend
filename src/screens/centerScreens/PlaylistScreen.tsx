@@ -37,7 +37,7 @@ export default function PlaylistScreen() {
                             artist={getArtistName(song.artistId)}
                             explicit={song.explicit}
                             trackNumber={index + 1}
-                            contextParam={`&playlist=${playlistId}`}
+                            playlistId={playlistId}
                         />
                     ))}
                 </div>

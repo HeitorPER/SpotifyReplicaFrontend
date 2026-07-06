@@ -1,20 +1,17 @@
-import { useSearchParams } from "react-router-dom";
 import { ArtistCard } from "../components/RightBoard/ArtistCard";
 import { CreditsCard } from "../components/RightBoard/CreditsCard";
 import { MusicImage } from "../components/RightBoard/MusicImage";
 import { EventsCard } from "../components/RightBoard/EventsCard";
 import { NextMusicCard } from "../components/RightBoard/NextMusicCard";
 import { useFetch } from "../hooks/useFetch";
+import { usePlayer } from "../context/PlayerContext";
 import * as musicService from "../services/MusicService";
 import * as artistService from "../services/ArtistService";
 import * as albumService from "../services/AlbumService";
 import * as playlistService from "../services/PlaylistService";
 
 export function RightBoard(){
-    const [searchParams] = useSearchParams();
-    const songId = searchParams.get("song");
-    const playlistId = searchParams.get("playlist");
-    const albumId = searchParams.get("album");
+    const { songId, playlistId, albumId } = usePlayer();
 
     const { data: currentSong } = useFetch(
         () => songId ? musicService.getMusicById(songId) : Promise.resolve(null),
@@ -95,9 +92,12 @@ export function RightBoard(){
             {nextSong && nextArtistName && (
                 <div className="w-full">
                     <NextMusicCard
+                        musicId={nextSong.id}
                         title={nextSong.title}
                         artist={nextArtistName}
                         explicit={nextSong.explicit}
+                        playlistId={playlistId ?? undefined}
+                        albumId={albumId ?? undefined}
                     />
                 </div>
             )}

@@ -1,5 +1,5 @@
-import { Link } from "react-router-dom"
 import { ImagePlaceholder } from "./ImagePlaceholder"
+import { usePlayer } from "../context/PlayerContext"
 
 interface MusicCardProps {
     title: string
@@ -8,12 +8,18 @@ interface MusicCardProps {
     explicit?: boolean
     imageUrl?: string
     trackNumber?: number
-    contextParam?: string
+    playlistId?: string
+    albumId?: string
 }
 
-export function MusicCard({ title, artist, musicId, explicit = false, imageUrl, trackNumber, contextParam }: MusicCardProps) {
+export function MusicCard({ title, artist, musicId, explicit = false, imageUrl, trackNumber, playlistId, albumId }: MusicCardProps) {
+    const { play } = usePlayer();
+
     return (
-        <Link to={`?song=${musicId}${contextParam ?? ""}`} className="w-full">
+        <button
+            type="button"
+            onClick={() => play(musicId, { playlistId, albumId })}
+            className="w-full text-left cursor-pointer">
             <div className="flex items-center justify-start gap-2
             rounded-lg hover:bg-[#2D2D2D] cursor-pointer w-full p-2">
                 {trackNumber !== undefined && (
@@ -35,6 +41,6 @@ export function MusicCard({ title, artist, musicId, explicit = false, imageUrl, 
                     <h2 className="text-gray-400 text-xs truncate">{artist}</h2>
                 </div>
             </div>
-        </Link>
+        </button>
     )
 }

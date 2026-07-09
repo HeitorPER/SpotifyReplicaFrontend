@@ -29,17 +29,24 @@ export default function PlaylistScreen() {
             </div>
             <div className="flex flex-col w-full py-6 px-5">
                 <div className="flex flex-col">
-                    {playlist.musics?.map((song, index) => (
-                        <MusicCard
-                            key={song.id}
-                            musicId={song.id}
-                            title={song.title}
-                            artist={getArtistName(song.artistId)}
-                            explicit={song.explicit}
-                            trackNumber={index + 1}
-                            playlistId={playlistId}
-                        />
-                    ))}
+                    {playlist.musics && playlist.musics.length > 0 ? (
+                        playlist.musics.map((song, index) => (
+                            <MusicCard
+                                key={song.id}
+                                musicId={song.id}
+                                title={song.title}
+                                artist={getArtistName(song.artistId)}
+                                explicit={song.explicit}
+                                trackNumber={index + 1}
+                                playlistId={playlistId}
+                            />
+                        ))
+                    ) : (
+                        <>
+                            <p className="text-gray-400">Nenhuma música adicionada ainda</p>
+                            <p className="text-gray-400">Adicione músicas para começar</p>
+                        </>
+                    )}
                 </div>
             </div>
         </div>

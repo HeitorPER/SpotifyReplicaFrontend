@@ -4,3 +4,7 @@ import type { Playlist } from "../types/Playlist";
 export function getPlaylistById(playlistId: string): Promise<Playlist> {
     return apiFetch<Playlist>(`/playlist/${playlistId}`);
 }
+
+export function createPlaylist(playlist: Omit<Playlist, "id">): Promise<Playlist> {
+    return apiFetch<Playlist>("/playlist/", { method: "POST", body: playlist });
+}

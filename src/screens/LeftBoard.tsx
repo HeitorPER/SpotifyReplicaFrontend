@@ -1,14 +1,26 @@
+import { useEffect, useState } from "react";
 import { PlaylistCard } from "../components/playlistCards/PlaylistCard";
 import { CreatePlaylistButton } from "../components/leftBoard/CreatePlaylistButton";
 import { SearchBar } from "../components/leftBoard/SearchBar";
 import { SelectionButton } from "../components/SelectionButtons";
 import { AlbumCard } from "../components/albumCards/AlbunsCard";
-import * as userService from "../services/UserService";
+import * as userService from "../services/userService";
 import { useFetch } from "../hooks/useFetch";
+import type { Playlist } from "../types/Playlist";
 
 export function LeftBoard(){
-    const {data:playlists} = useFetch(() => userService.getPlaylists(), [])
+    const {data:fetchedPlaylists} = useFetch(() => userService.getPlaylists(), [])
     const {data:albums} = useFetch(() => userService.getRecentAlbums(), [])
+    const [playlists, setPlaylists] = useState<Playlist[]>([]);
+
+    useEffect(() => {
+        if (fetchedPlaylists) setPlaylists(fetchedPlaylists);
+    }, [fetchedPlaylists]);
+
+    const handlePlaylistCreated = (playlist: Playlist) => {
+        setPlaylists((prev) => [...prev, playlist]);
+    };
+
     return(
         <div className="h-full flex flex-col items-start justify-start
         border-2 rounded-lg w-1/4 text-gray-300
@@ -19,7 +31,10 @@ export function LeftBoard(){
             to-black pb-4 px-4 border-transparent">
                 <div className="py-4 justify-between flex items-center">
                     <h2 className="text-lg font-bold text-white">Sua biblioteca</h2>
-                    <CreatePlaylistButton />
+                    <CreatePlaylistButton
+                        playlistCount={playlists.length}
+                        onCreated={handlePlaylistCreated}
+                    />
                 </div>
                 <div className="flex justify-start items-start gap-x-2">
                     <SelectionButton label="Tudo" />
@@ -33,7 +48,7 @@ export function LeftBoard(){
             </div>
             <div className="w-full flex-1 min-h-0 px-4">
                 <div className="h-full flex flex-col items-start justify-start py-2 gap-y-1 scrollbar-custom overflow-y-auto">
-                    {playlists?.map((playlist) => (
+                    {playlists.map((playlist) => (
                         <PlaylistCard
                             key={playlist.id}
                             name={playlist.name}

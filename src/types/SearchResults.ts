@@ -1,13 +1,16 @@
-import type { Music } from "./Music";
-import type { Album } from "./Album";
-import type { Artist } from "./Artist";
-import type { Playlist } from "./Playlist";
+export interface SearchResultItem {
+    id: string;
+    name: string;
+    artistId?: string;
+    explicit?: boolean;
+    
+}
 
 export interface SearchResults {
-	musics: Music[];
-	albums: Album[];
-	artists: Artist[];
-	playlists: Playlist[];
+    musics: SearchResultItem[];
+    albums: SearchResultItem[];
+    artists: SearchResultItem[];
+    playlists: SearchResultItem[];
 }
 
 export const emptySearchResults: SearchResults = {

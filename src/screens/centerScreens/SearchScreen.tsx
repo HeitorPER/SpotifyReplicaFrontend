@@ -1,9 +1,12 @@
-import { useNavigate } from "react-router-dom";
-import { ImagePlaceholder } from "../ImagePlaceholder";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { usePlayer } from "../../context/PlayerContext";
 import type { SearchResults, SearchResultItem } from "../../types/SearchResults";
+import { emptySearchResults } from "../../types/SearchResults";
+import { ImagePlaceholder } from "../../components/ImagePlaceholder";
+import { useFetch } from "../../hooks/useFetch";
+import * as searchService from "../../services/SearchService";
 
-type QuickResult =
+ type QuickResult =
     | { type: "music"; data: SearchResultItem }
     | { type: "artist"; data: SearchResultItem }
     | { type: "album"; data: SearchResultItem }
@@ -43,15 +46,19 @@ function quickResultLabel(item: QuickResult): {title: string, subtitle: string} 
 
 }
 
-interface HeaderSearchDropDownnProps{
-    results: SearchResults;
-    onItemClick: () => void;
-}
+export default function SearchScreen(){
 
-export function HeaderSearchDropDown({results, onItemClick}: HeaderSearchDropDownnProps) {
     const navigate = useNavigate();
     const { play } = usePlayer();
-    const quickResults = getQuickResults(results, 4);
+    const [searchParams] = useSearchParams();
+    const query = searchParams.get("q") ?? "";
+
+    const { data: results } = useFetch(
+        () => (query.trim().length === 0 ? Promise.resolve(emptySearchResults) : searchService.search(query)),
+        [query]
+    );
+
+    const quickResults = getQuickResults(results ?? emptySearchResults, 10);
 
     const handleItemClick = (item: QuickResult) => {
         if(item.type == "music"){
@@ -63,12 +70,16 @@ export function HeaderSearchDropDown({results, onItemClick}: HeaderSearchDropDow
         }else if(item.type == "artist"){
             navigate(`/ArtistScreen/${item.data.id}`);
         }
-        onItemClick();
-    }
+    };
 
+   
+    
     return(
-        <div className="absolute top-full left-0 mt-2 w-full min-w-64 rounded-lg
-        bg-[#282828] shadow-lg overflow-hidden z-50">
+        <div className="h-full w-full flex flex-col items-start
+                border-2 rounded-lg text-gray-300
+                gap-y-4 border-transparent
+                bg-[#121212]
+                scrollbar-custom overflow-y-auto">
             {quickResults.length === 0 ? (
                 <p className="text-gray-400 text-sm p-3">Nenhum resultado encontrado</p>
             ) : (
@@ -96,7 +107,8 @@ export function HeaderSearchDropDown({results, onItemClick}: HeaderSearchDropDow
                     );
                 })
             )}
+
+
         </div>
     )
-
 }

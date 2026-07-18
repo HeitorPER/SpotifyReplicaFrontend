@@ -5,6 +5,7 @@ import { emptySearchResults } from "../../types/SearchResults";
 import { ImagePlaceholder } from "../../components/ImagePlaceholder";
 import { useFetch } from "../../hooks/useFetch";
 import * as searchService from "../../services/SearchService";
+import { SelectionButton } from "../../components/SelectionButtons";
 
  type QuickResult =
     | { type: "music"; data: SearchResultItem }
@@ -79,7 +80,13 @@ export default function SearchScreen(){
                 border-2 rounded-lg text-gray-300
                 gap-y-4 border-transparent
                 bg-[#121212]
-                scrollbar-custom overflow-y-auto">
+                scrollbar-custom overflow-y-auto px-4 py-5">
+            <div className="flex items-center gap-x-2">
+                <SelectionButton label="Tudo"/>
+                <SelectionButton label="Músicas"/>
+                <SelectionButton label="Álbuns"/>
+                <SelectionButton label="Playlists"/>
+            </div>
             {quickResults.length === 0 ? (
                 <p className="text-gray-400 text-sm p-3">Nenhum resultado encontrado</p>
             ) : (
@@ -94,7 +101,7 @@ export default function SearchScreen(){
                             type="button"
                             onClick={() => handleItemClick(item)}
                             className="w-full text-left cursor-pointer flex items-center gap-2
-                            p-2 hover:bg-[#3E3E3E]"
+                            p-2 hover:bg-[#3E3E3E] rounded-sm"
                         >
                             <div className="w-10 h-10 shrink-0 rounded overflow-hidden">
                                 <ImagePlaceholder type={placeholderType} />

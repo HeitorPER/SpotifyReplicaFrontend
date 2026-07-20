@@ -6,9 +6,10 @@ interface MusicOptions{
     musicId: string;
     artistId: string;
     albumId: string;
+    playlistId?: string;
 }
 
-export function MusicOptionsButton({albumId, musicId, artistId}:MusicOptions){
+export function MusicOptionsButton({albumId, musicId, artistId, playlistId}:MusicOptions){
     const [isOpen, setIsOpen] = useState(false);
     const containerRef = useRef<HTMLDivElement>(null);
 
@@ -37,6 +38,7 @@ export function MusicOptionsButton({albumId, musicId, artistId}:MusicOptions){
             musicId={musicId}
             artistId={artistId}
             albumId={albumId}
+            playlistId={playlistId}
             onClose={() => setIsOpen(false)}
             onSelect={() => setIsOpen(false)}/>}
         </div>

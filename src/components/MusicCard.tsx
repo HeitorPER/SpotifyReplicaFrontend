@@ -88,7 +88,8 @@ export function MusicCard({ duration, title, artist, musicId, explicit = false, 
                     <MusicOptionsButton
                     artistId={artist}
                     albumId={albumId}
-                    musicId={musicId}/>
+                    musicId={musicId}
+                    playlistId={playlistId}/>
                 </div>
             </div>
             {contextMenu && (

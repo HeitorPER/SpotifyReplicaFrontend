@@ -59,7 +59,11 @@ export function NextMusicCard({ musicId, title, artist, explicit = false, imageU
                     </div>
                     {timeconverter(duration)}
                     <div onClick={(event) => event.stopPropagation()} className="shrink-0">
-                        <MusicOptionsButton musicId={musicId}/>
+                        <MusicOptionsButton
+                        musicId={musicId}
+                        artistId={artist}
+                        albumId={albumId ?? ""}
+                        playlistId={playlistId}/>
                     </div>
                 </div>
             </button>

@@ -98,6 +98,7 @@ export function RightBoard(){
                         artist={nextArtistName}
                         explicit={nextSong.explicit}
                         playlistId={playlistId ?? undefined}
+                        duration={nextSong.duration}
                         albumId={albumId ?? undefined}
                     />
                 </div>

@@ -4,6 +4,7 @@ import * as userService from "../../services/userService"
 import * as playlistService from "../../services/PlaylistService"
 import { ImagePlaceholder } from "../ImagePlaceholder";
 import { BiSolidRightArrow } from "react-icons/bi";
+import { Link } from "react-router-dom";
 
 interface PlaylistButtonProps{
     imageUrl?: string;
@@ -16,6 +17,7 @@ interface PlaylistButtonProps{
 interface MusicOptions{
     musicId: string;
     playlistId?: string;
+    artistId: string;
     onClose: () => void;
     onSelect: () => void;
 }
@@ -68,7 +70,7 @@ function PlaylistsList({musicId, onClose}:{musicId: string; onClose: () => void}
     )
 }
 
-export function MusicOptionsMenu({musicId, playlistId, onSelect, onClose}: MusicOptions){
+export function MusicOptionsMenu({artistId, musicId, playlistId, onSelect, onClose}: MusicOptions){
     const [isOpen, setIsOpen] = useState(false);
     const containerRef = useRef<HTMLDivElement>(null);
     useEffect(() => {
@@ -117,7 +119,9 @@ export function MusicOptionsMenu({musicId, playlistId, onSelect, onClose}: Music
             <h2>Salvar em musicas curtidas </h2>
             <h2>Remover da sua biblioteca </h2>
 
-            <h2>Ir para artista</h2>
+            <Link to={`/ArtistScreen/${artistId}`}
+            className="flex items-center text-gray-400 hover:text-white
+            cursor-pointer">Ir para artista</Link>
             <h2>Ir para album</h2>
             <h2>Ver Créditos</h2>
         </div>

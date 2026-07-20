@@ -86,6 +86,7 @@ export function MusicCard({ duration, title, artist, musicId, explicit = false, 
                 {timeconverter(duration)}
                 <div onClick={(event) => event.stopPropagation()} className="justify-self-center">
                     <MusicOptionsButton
+                    artistId={artist}
                     musicId={musicId}/>
                 </div>
             </div>
@@ -98,6 +99,7 @@ export function MusicCard({ duration, title, artist, musicId, explicit = false, 
                     <MusicOptionsMenu
                     musicId={musicId}
                     playlistId={playlistId}
+                    artistId={artist}
                     onClose={() => setContextMenu(null)}
                     onSelect={() => setContextMenu(null)}/>
                 </div>

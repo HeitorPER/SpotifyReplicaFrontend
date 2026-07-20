@@ -34,7 +34,7 @@ export function RightBoard(){
         [albumId]
     );
 
-    const queueMusics = album?.musics ?? playlist?.musics ?? [];
+    const queueMusics = playlist?.musics ?? album?.musics ?? [];
     const currentQueueIndex = currentSong
         ? queueMusics.findIndex((m) => m.id === currentSong.id)
         : -1;
@@ -42,12 +42,13 @@ export function RightBoard(){
         ? queueMusics[(currentQueueIndex + 1) % queueMusics.length]
         : undefined;
 
-    const nextArtistId = !album && nextSong ? nextSong.artistId : null;
+    const isAlbumContext = !playlist && !!album;
+    const nextArtistId = !isAlbumContext && nextSong ? nextSong.artistId : null;
     const { data: nextArtist } = useFetch(
         () => nextArtistId ? artistService.getArtistById(nextArtistId) : Promise.resolve(null),
         [nextArtistId]
     );
-    const nextArtistName = album ? album.artistName : nextArtist?.name;
+    const nextArtistName = isAlbumContext ? album.artistName : nextArtist?.name;
 
     return(
         <div className="flex flex-col items-center justify-start px-4
@@ -97,6 +98,7 @@ export function RightBoard(){
                         artist={nextArtistName}
                         explicit={nextSong.explicit}
                         playlistId={playlistId ?? undefined}
+                        duration={nextSong.duration}
                         albumId={albumId ?? undefined}
                     />
                 </div>

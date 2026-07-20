@@ -3,7 +3,6 @@ import { MusicCard } from "../../components/MusicCard";
 import { Shelf } from "../../components/SelfModel";
 import { ArtistsCardRounded } from "../../components/ArtistsCardRounded";
 import { AlbumCard } from "../../components/albumCards/AlbunsSquareCard";
-import { mockSongs } from "../../data/mockSongs";
 import * as artistService from "../../services/ArtistService";
 import { useFetch } from "../../hooks/useFetch";
 
@@ -42,19 +41,12 @@ export default function ArtistScreen() {
                                     key={song.id}
                                     musicId={song.id}
                                     title={song.title}
+                                    duration={song.duration}
                                     artist={artist.name}
                                     explicit={song.explicit}
                                 />
                             ))
-                            : mockSongs.slice(0, 5).map((song) => (
-                                <MusicCard
-                                    key={song.id}
-                                    musicId={song.id}
-                                    title={song.title}
-                                    artist={artist.name}
-                                    explicit={song.explicit}
-                                />
-                            ))
+                            : <h2>Sem músicas</h2>
                         }
                     </div>
                 </div>

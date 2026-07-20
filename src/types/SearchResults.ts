@@ -1,7 +1,7 @@
 export interface SearchResultItem {
     id: string;
     name: string;
-    artistId?: string;
+    artistName?: string;
     explicit?: boolean;
     
 }

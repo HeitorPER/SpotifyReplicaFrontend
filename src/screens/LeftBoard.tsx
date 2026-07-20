@@ -9,13 +9,13 @@ import { useFetch } from "../hooks/useFetch";
 import type { Playlist } from "../types/Playlist";
 
 export function LeftBoard(){
-    const {data:fetchedPlaylists} = useFetch(() => userService.getPlaylists(), [])
+    const {data:Playlists} = useFetch(() => userService.getPlaylists(), [])
     const {data:albums} = useFetch(() => userService.getRecentAlbums(), [])
     const [playlists, setPlaylists] = useState<Playlist[]>([]);
 
     useEffect(() => {
-        if (fetchedPlaylists) setPlaylists(fetchedPlaylists);
-    }, [fetchedPlaylists]);
+        if (Playlists) setPlaylists(Playlists);
+    }, [Playlists]);
 
     const handlePlaylistCreated = (playlist: Playlist) => {
         setPlaylists((prev) => [...prev, playlist]);

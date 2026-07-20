@@ -2,7 +2,11 @@ import { useEffect, useRef, useState } from "react";
 import { BsThreeDots } from "react-icons/bs";
 import { MusicOptionsMenu } from "./MusicOptionsMenu";
 
-export function MusicOptionsButton(){
+interface MusicOptions{
+    musicId: string;
+}
+
+export function MusicOptionsButton({musicId}:MusicOptions){
     const [isOpen, setIsOpen] = useState(false);
     const containerRef = useRef<HTMLDivElement>(null);
 
@@ -21,14 +25,15 @@ export function MusicOptionsButton(){
     }
 
     return(
-        <div ref={containerRef} className="relative"
-        style={{ position: "fixed"}}>
+        <div ref={containerRef} className="relative">
             <button type="button" onClick={handleClick} 
             className="cursor-pointer hover:border-gray-400 hover:border
             hover:rounded-sm">
                 <BsThreeDots size={20} className="text-gray-400 hover:text-white" />
             </button>
-            {isOpen && <MusicOptionsMenu />}
+            {isOpen && <MusicOptionsMenu
+            musicId={musicId}
+            onClose={() => setIsOpen(false)}/>}
         </div>
     )
 }

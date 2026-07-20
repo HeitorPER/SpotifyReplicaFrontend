@@ -6,6 +6,8 @@ import { ImagePlaceholder } from "../ImagePlaceholder";
 import { BiSolidRightArrow } from "react-icons/bi";
 import { Link } from "react-router-dom";
 
+const LIKED_SONGS_PLAYLIST_ID = "bf08f708-dc79-4626-bb40-c8e64de7af51";
+
 interface PlaylistButtonProps{
     imageUrl?: string;
     name: string;
@@ -83,7 +85,12 @@ export function MusicOptionsMenu({albumId, artistId, musicId, playlistId, onSele
             document.addEventListener("mousedown", handleClickOutside);
             return () => document.removeEventListener("mousedown", handleClickOutside);
         }, []);
-        
+
+    async function handleAddToFavorites(){
+        await playlistService.addMusicToPlaylist(LIKED_SONGS_PLAYLIST_ID, musicId);
+        onSelect();
+    }
+
     function handleOpenPlaylists(){
         setIsOpen((prev) => !prev);
     }
@@ -117,7 +124,12 @@ export function MusicOptionsMenu({albumId, artistId, musicId, playlistId, onSele
             cursor-pointer">
                     Remover dessa playlist
             </button>
-            <h2>Salvar em musicas curtidas </h2>
+            <button
+            onClick={handleAddToFavorites}
+            className="flex items-center text-gray-400 hover:text-white
+            cursor-pointer">
+                    Salvar em musicas curtidas
+            </button>
             <h2>Remover da sua biblioteca </h2>
 
             <Link to={`/ArtistScreen/${artistId}`}

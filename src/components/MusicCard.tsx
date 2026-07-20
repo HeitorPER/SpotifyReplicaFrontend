@@ -3,6 +3,7 @@ import { usePlayer } from "../context/PlayerContext"
 import { useFetch } from "../hooks/useFetch"
 import * as artistService from "../services/ArtistService"
 import * as albumService from "../services/AlbumService"
+import { MusicOptionsButton } from "./musicCard/OptionsButton"
 
 interface MusicCardProps {
     title: string
@@ -24,7 +25,7 @@ export function MusicCard({ duration, title, artist, musicId, explicit = false, 
         const seconds = duration%60;
         return(<h2 className="text-gray-400 text-xs truncate text-right">{minutes}:{seconds}</h2>);
     }
-    
+
     const { data: artistData } = useFetch(
             () => artist ? artistService.getArtistById(artist) : Promise.resolve(null),
             [artist]
@@ -40,7 +41,7 @@ export function MusicCard({ duration, title, artist, musicId, explicit = false, 
             type="button"
             onClick={() => play(musicId, { playlistId, albumId })}
             className="w-full text-left cursor-pointer">
-            <div className="grid grid-cols-[24px_4fr_2fr_2fr_50px] items-center gap-x-4
+            <div className="grid grid-cols-[24px_4fr_2fr_2fr_50px_40px] items-center gap-x-4
             rounded-lg hover:bg-[#2D2D2D] cursor-pointer w-full p-2">
                 <span className="text-gray-400 text-sm text-center shrink-0">{trackNumber}</span>
                 <div className="flex items-center gap-2 min-w-0">
@@ -63,6 +64,9 @@ export function MusicCard({ duration, title, artist, musicId, explicit = false, 
                 <h2 className="text-gray-400 text-xs truncate">{albumData?.title}</h2>
                 <h2 className="text-gray-400 text-xs truncate">data de adição</h2>
                 {timeconverter(duration)}
+                <div onClick={(event) => event.stopPropagation()} className="justify-self-center">
+                    <MusicOptionsButton/>
+                </div>
             </div>
         </button>
     )

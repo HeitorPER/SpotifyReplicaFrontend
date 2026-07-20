@@ -27,14 +27,14 @@ export default function PlaylistScreen() {
                     <h2 className="text-sm text-gray-400">{playlist.musicQtd} músicas</h2>
                 </div>
             </div>
-            <div className="grid grid-cols-[24px_4fr_2fr_2fr_50px] items-center 
-             px-7 pb-2 gap-x-4 w-full text-[10px]">
+            <div className="grid grid-cols-[24px_4fr_2fr_2fr_50px_40px] items-center
+             px-7 gap-x-4 w-full text-[10px]">
                 <h2 className="text-center">#</h2>
                 <h2>Título</h2>
                 <h2>Álbum</h2>
                 <h2>Adicionada em</h2>
                 <LuClock3 className="mx-auto"/>
-                <div className="border-b border-[#4E4E4E] w-full flex col-span-5"/>
+                <div className="col-span-6 border-b border-[#4E4E4E] mt-2"/>
             </div>
             <div className="flex flex-col w-full pb-3 px-5">
                 <div className="flex flex-col">

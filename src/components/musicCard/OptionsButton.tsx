@@ -33,7 +33,8 @@ export function MusicOptionsButton({musicId}:MusicOptions){
             </button>
             {isOpen && <MusicOptionsMenu
             musicId={musicId}
-            onClose={() => setIsOpen(false)}/>}
+            onClose={() => setIsOpen(false)}
+            onSelect={() => setIsOpen(false)}/>}
         </div>
     )
 }

@@ -97,7 +97,9 @@ export function MusicCard({ duration, title, artist, musicId, explicit = false, 
                     className="z-50">
                     <MusicOptionsMenu
                     musicId={musicId}
-                    onClose={() => setContextMenu(null)}/>
+                    playlistId={playlistId}
+                    onClose={() => setContextMenu(null)}
+                    onSelect={() => setContextMenu(null)}/>
                 </div>
             )}
         </button>

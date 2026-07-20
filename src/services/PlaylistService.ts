@@ -12,3 +12,7 @@ export function createPlaylist(playlist: Omit<Playlist, "id">): Promise<Playlist
 export function addMusicToPlaylist(playlistId: string, musicId:string): Promise<Playlist>{
     return apiFetch<Playlist>(`/playlist/${playlistId}/${musicId}`, {method: "PATCH"})
 }
+
+export function deleteMusicById(playlistId: string, musicId:string): Promise<Playlist>{
+    return apiFetch<Playlist>(`/playlist/${playlistId}/${musicId}`, {method: "DELETE"})
+}

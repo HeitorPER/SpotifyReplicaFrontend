@@ -15,7 +15,9 @@ interface PlaylistButtonProps{
 
 interface MusicOptions{
     musicId: string;
+    playlistId?: string;
     onClose: () => void;
+    onSelect: () => void;
 }
 
 function PlaylistsButton({imageUrl, name, playlistId, musicId, onSelect}:PlaylistButtonProps){
@@ -44,7 +46,7 @@ function PlaylistsButton({imageUrl, name, playlistId, musicId, onSelect}:Playlis
     )
 }
 
-function PlaylistsList({musicId, onClose}:MusicOptions){
+function PlaylistsList({musicId, onClose}:{musicId: string; onClose: () => void}){
     const {data:Playlists} = useFetch(() => userService.getPlaylists(), [])
 
     return(
@@ -66,7 +68,7 @@ function PlaylistsList({musicId, onClose}:MusicOptions){
     )
 }
 
-export function MusicOptionsMenu({musicId, onClose}: MusicOptions){
+export function MusicOptionsMenu({musicId, playlistId, onSelect, onClose}: MusicOptions){
     const [isOpen, setIsOpen] = useState(false);
     const containerRef = useRef<HTMLDivElement>(null);
     useEffect(() => {
@@ -81,6 +83,13 @@ export function MusicOptionsMenu({musicId, onClose}: MusicOptions){
         
     function handleOpenPlaylists(){
         setIsOpen((prev) => !prev);
+    }
+
+    async function handleClickDeleteFromPlaylist(){
+        if(!playlistId) return;
+
+        await playlistService.deleteMusicById(playlistId, musicId);
+        onSelect();
     }
     
     return(
@@ -99,7 +108,12 @@ export function MusicOptionsMenu({musicId, onClose}: MusicOptions){
                             onClose={onClose}/>}
             </div>
             
-            <h2>Remover dessa playlist</h2>
+            <button
+            onClick={handleClickDeleteFromPlaylist}
+            className="flex items-center text-gray-400 hover:text-white
+            cursor-pointer">
+                    Remover dessa playlist
+            </button>
             <h2>Salvar em musicas curtidas </h2>
             <h2>Remover da sua biblioteca </h2>
 

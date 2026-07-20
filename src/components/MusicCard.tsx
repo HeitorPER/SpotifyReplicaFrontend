@@ -15,7 +15,7 @@ interface MusicCardProps {
     imageUrl?: string
     trackNumber?: number
     playlistId?: string
-    albumId?: string
+    albumId: string
     duration: number
 }
 
@@ -87,6 +87,7 @@ export function MusicCard({ duration, title, artist, musicId, explicit = false, 
                 <div onClick={(event) => event.stopPropagation()} className="justify-self-center">
                     <MusicOptionsButton
                     artistId={artist}
+                    albumId={albumId}
                     musicId={musicId}/>
                 </div>
             </div>
@@ -98,6 +99,7 @@ export function MusicCard({ duration, title, artist, musicId, explicit = false, 
                     className="z-50">
                     <MusicOptionsMenu
                     musicId={musicId}
+                    albumId={albumId}
                     playlistId={playlistId}
                     artistId={artist}
                     onClose={() => setContextMenu(null)}

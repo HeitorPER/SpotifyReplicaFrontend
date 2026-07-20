@@ -41,6 +41,7 @@ export default function ArtistScreen() {
                                     key={song.id}
                                     musicId={song.id}
                                     title={song.title}
+                                    albumId={song.albumId}
                                     duration={song.duration}
                                     artist={artist.name}
                                     explicit={song.explicit}

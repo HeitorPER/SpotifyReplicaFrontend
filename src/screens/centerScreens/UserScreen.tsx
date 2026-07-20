@@ -3,7 +3,7 @@ import { ImagePlaceholder } from "../../components/ImagePlaceholder";
 import { MusicCard } from "../../components/MusicCard";
 import { PlaylistSquareCard } from "../../components/playlistCards/playlistSquareCard";
 import { Shelf } from "../../components/SelfModel";
-import * as userService from "../../services/UserService.ts"
+import * as userService from "../../services/userService.ts"
 import { useFetch } from "../../hooks/useFetch";
 
 interface UserScreenProps{
@@ -62,6 +62,8 @@ export default function UserScreen({imageUrl, name}:UserScreenProps) {
                                 title={song.title}
                                 artist={(song.artistId)}
                                 trackNumber={index + 1}
+                                albumId={song.albumId}
+                                duration={song.duration}
                                 explicit={song.explicit}
                             />
                         ))}

@@ -18,6 +18,7 @@ interface MusicOptions{
     musicId: string;
     playlistId?: string;
     artistId: string;
+    albumId: string;
     onClose: () => void;
     onSelect: () => void;
 }
@@ -70,7 +71,7 @@ function PlaylistsList({musicId, onClose}:{musicId: string; onClose: () => void}
     )
 }
 
-export function MusicOptionsMenu({artistId, musicId, playlistId, onSelect, onClose}: MusicOptions){
+export function MusicOptionsMenu({albumId, artistId, musicId, playlistId, onSelect, onClose}: MusicOptions){
     const [isOpen, setIsOpen] = useState(false);
     const containerRef = useRef<HTMLDivElement>(null);
     useEffect(() => {
@@ -122,7 +123,9 @@ export function MusicOptionsMenu({artistId, musicId, playlistId, onSelect, onClo
             <Link to={`/ArtistScreen/${artistId}`}
             className="flex items-center text-gray-400 hover:text-white
             cursor-pointer">Ir para artista</Link>
-            <h2>Ir para album</h2>
+            <Link to={`/AlbumScreen/${albumId}`}
+            className="flex items-center text-gray-400 hover:text-white
+            cursor-pointer">Ir para album</Link>
             <h2>Ver Créditos</h2>
         </div>
     )

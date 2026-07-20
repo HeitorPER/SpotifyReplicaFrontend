@@ -5,9 +5,10 @@ import { MusicOptionsMenu } from "./MusicOptionsMenu";
 interface MusicOptions{
     musicId: string;
     artistId: string;
+    albumId: string;
 }
 
-export function MusicOptionsButton({musicId, artistId}:MusicOptions){
+export function MusicOptionsButton({albumId, musicId, artistId}:MusicOptions){
     const [isOpen, setIsOpen] = useState(false);
     const containerRef = useRef<HTMLDivElement>(null);
 
@@ -35,6 +36,7 @@ export function MusicOptionsButton({musicId, artistId}:MusicOptions){
             {isOpen && <MusicOptionsMenu
             musicId={musicId}
             artistId={artistId}
+            albumId={albumId}
             onClose={() => setIsOpen(false)}
             onSelect={() => setIsOpen(false)}/>}
         </div>

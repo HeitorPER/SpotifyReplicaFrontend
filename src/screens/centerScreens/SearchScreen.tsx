@@ -36,9 +36,9 @@ function getQuickResults(results: SearchResults, limit: number): QuickResult[] {
 function quickResultLabel(item: QuickResult): {title: string, subtitle: string} {
     switch (item.type) {
         case "music":
-            return { title: item.data.name, subtitle: "Música" };
+            return { title: item.data.name, subtitle: "Música • " + item.data.artistName};
         case "album":
-            return { title: item.data.name, subtitle: "Álbum"};
+            return { title: item.data.name, subtitle: "Álbum • " + item.data.artistName};
         case "artist":
             return { title: item.data.name, subtitle: "Artist"};
         case "playlist":

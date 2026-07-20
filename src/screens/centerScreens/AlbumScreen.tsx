@@ -35,6 +35,7 @@ export default function AlbumScreen() {
                             key={song.id}
                             musicId={song.id}
                             title={song.title}
+                            duration={song.duration}
                             artist={album.artistName}
                             explicit={song.explicit}
                             trackNumber={index + 1}

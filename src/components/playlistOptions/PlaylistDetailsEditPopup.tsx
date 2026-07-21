@@ -7,9 +7,10 @@ import { IoLockClosedOutline } from "react-icons/io5";
 interface PlaylistEditDetailsProps{
     playlistId: string;
     onClose: () => void;
+    onSelect: () => void;
 }
 
-export function PLaylistDeatilsEditPopup({playlistId, onClose}:PlaylistEditDetailsProps){
+export function PLaylistDeatilsEditPopup({playlistId, onClose, onSelect}:PlaylistEditDetailsProps){
     const { data: playlist } = useFetch(() => playlistService.getPlaylistById(playlistId as string), [playlistId]);
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
@@ -18,6 +19,11 @@ export function PLaylistDeatilsEditPopup({playlistId, onClose}:PlaylistEditDetai
         setName(playlist?.name ?? "");
         setDescription(playlist?.description ?? "");
     }, [playlist]);
+
+    async function handleSaveDetails(){
+        playlistService.editPlaylistAttributes(playlistId, name, description);
+        onSelect();
+    }
 
     return(
         <div
@@ -54,6 +60,7 @@ export function PLaylistDeatilsEditPopup({playlistId, onClose}:PlaylistEditDetai
                         Tornar Privada
                     </button>
                     <button
+                    onClick={handleSaveDetails}
                     className="bg-gray-100 text-black rounded-3xl
                     py-2 px-6 cursor-pointer hover:scale-105 duration-300">
                         Salvar

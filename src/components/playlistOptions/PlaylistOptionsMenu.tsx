@@ -34,6 +34,7 @@ export function PlaylistOptionsMenu({playlistId, onClose}: PlaylistOptionsProps)
                     Editar os detalhes
                 </button>
                 {isOpen && <PLaylistDeatilsEditPopup
+                                onSelect={onClose}
                                 onClose={onClose}
                                 playlistId={playlistId}/>
                 }

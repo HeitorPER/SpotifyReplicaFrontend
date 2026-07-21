@@ -1,5 +1,5 @@
 import {apiFetch} from "./httpClient";
-import type { Playlist } from "../types/Playlist";
+import type { Playlist, UpdatePlaylistDetails } from "../types/Playlist";
 
 export function getPlaylistById(playlistId: string): Promise<Playlist> {
     return apiFetch<Playlist>(`/playlist/${playlistId}`);
@@ -15,4 +15,10 @@ export function addMusicToPlaylist(playlistId: string, musicId:string): Promise<
 
 export function deleteMusicById(playlistId: string, musicId:string): Promise<Playlist>{
     return apiFetch<Playlist>(`/playlist/${playlistId}/${musicId}`, {method: "DELETE"})
+}
+
+export function editPlaylistAttributes(playlistId:string, name: string, description:string): Promise<UpdatePlaylistDetails>{
+    return apiFetch<UpdatePlaylistDetails>(`/playlist/${playlistId}/attributes`,
+        {method: "PUT", body: { name, description }}
+    )
 }

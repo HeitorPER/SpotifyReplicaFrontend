@@ -10,3 +10,8 @@ export interface Playlist {
     createdAt: string;
     updatedAt: string;
 }
+
+export interface UpdatePlaylistDetails{
+    name: string;
+    description: string;
+}

@@ -4,6 +4,8 @@ import { MusicCard } from "../../components/MusicCard";
 import * as playlistService from "../../services/PlaylistService";
 import { useFetch } from "../../hooks/useFetch";
 import { LuClock3 } from "react-icons/lu";
+import { PlaylistOptionsButton } from "../../components/playlistOptions/playlistOptionsButton";
+import { PlaylistPlayButton } from "../../components/playlistOptions/PlaylistPlayButton";
 
 export default function PlaylistScreen() {
     const { playlistId } = useParams<{ playlistId: string }>();
@@ -26,6 +28,14 @@ export default function PlaylistScreen() {
                     <h2 className="text-sm text-gray-400">{playlist.description}</h2>
                     <h2 className="text-sm text-gray-400">{playlist.musicQtd} músicas</h2>
                 </div>
+            </div>
+            <div className="pl-4 flex w-full justify-start items-center gap-3">
+                {playlist.musics && playlist.musics.length > 0 && (
+                    <PlaylistPlayButton musicId={playlist.musics[0].id}
+                    playlistId={playlist.id} />
+                )}
+                <PlaylistOptionsButton
+                playlistId={playlist.id}/>
             </div>
             <div className="grid grid-cols-[24px_4fr_2fr_2fr_50px_40px] items-center
              px-7 gap-x-4 w-full text-[10px]">

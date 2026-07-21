@@ -9,7 +9,7 @@ import * as musicService from "../services/MusicService";
 import * as artistService from "../services/ArtistService";
 import * as albumService from "../services/AlbumService";
 import * as playlistService from "../services/PlaylistService";
-import { MusicOptionsButton } from "../components/musicCard/OptionsButton";
+import { MusicOptionsButton } from "../components/musicCardOptions/OptionsButton";
 
 export function RightBoard(){
     const { songId, playlistId, albumId } = usePlayer();

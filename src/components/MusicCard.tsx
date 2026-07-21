@@ -3,8 +3,8 @@ import { usePlayer } from "../context/PlayerContext"
 import { useFetch } from "../hooks/useFetch"
 import * as artistService from "../services/ArtistService"
 import * as albumService from "../services/AlbumService"
-import { MusicOptionsButton } from "./musicCard/OptionsButton"
-import { MusicOptionsMenu } from "./musicCard/MusicOptionsMenu"
+import { MusicOptionsButton } from "./musicCardOptions/OptionsButton"
+import { MusicOptionsMenu } from "./musicCardOptions/MusicOptionsMenu"
 import { useEffect, useRef, useState } from "react"
 
 interface MusicCardProps {

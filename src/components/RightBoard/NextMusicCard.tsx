@@ -2,7 +2,7 @@ import { ImagePlaceholder } from "../ImagePlaceholder"
 import { usePlayer } from "../../context/PlayerContext"
 import { useFetch } from "../../hooks/useFetch"
 import * as artistService from "../../services/ArtistService"
-import { MusicOptionsButton } from "../musicCard/OptionsButton"
+import { MusicOptionsButton } from "../musicCardOptions/OptionsButton"
 
 interface NextMusicCardProps {
     musicId: string

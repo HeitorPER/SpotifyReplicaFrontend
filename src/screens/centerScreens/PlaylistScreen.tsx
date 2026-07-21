@@ -4,7 +4,7 @@ import { MusicCard } from "../../components/MusicCard";
 import * as playlistService from "../../services/PlaylistService";
 import { useFetch } from "../../hooks/useFetch";
 import { LuClock3 } from "react-icons/lu";
-import { PlaylistOptionsButton } from "../../components/playlistOptions/playlistOptionsButton";
+import { PlaylistOptionsButton } from "../../components/playlistOptions/PlaylistOptionsButton";
 import { PlaylistPlayButton } from "../../components/playlistOptions/PlaylistPlayButton";
 
 export default function PlaylistScreen() {

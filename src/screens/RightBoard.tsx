@@ -9,6 +9,7 @@ import * as musicService from "../services/MusicService";
 import * as artistService from "../services/ArtistService";
 import * as albumService from "../services/AlbumService";
 import * as playlistService from "../services/PlaylistService";
+import { MusicOptionsButton } from "../components/musicCard/OptionsButton";
 
 export function RightBoard(){
     const { songId, playlistId, albumId } = usePlayer();
@@ -58,11 +59,14 @@ export function RightBoard(){
         ">
             <div className="w-full py-4 justify-between flex items-center">
                 <h1 className="text-xl font-bold">{artist?.name ?? "Nada tocando"}</h1>
-                <button
-                className="text-white text-sm border border-transparent
-                rounded-lg px-3 py-1 hover:bg-gray-700 transition-colors cursor-pointer">
-                    ...
-                </button>
+                {currentSong && (
+                    <MusicOptionsButton
+                    albumId={currentSong.albumId}
+                    musicId={currentSong.id}
+                    artistId={currentSong.artistId}
+                    playlistId={playlistId ?? undefined}
+                    />
+                )}
             </div>
             <div className="w-full">
                 <MusicImage

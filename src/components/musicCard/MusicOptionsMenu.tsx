@@ -5,6 +5,10 @@ import * as playlistService from "../../services/PlaylistService"
 import { ImagePlaceholder } from "../ImagePlaceholder";
 import { BiSolidRightArrow } from "react-icons/bi";
 import { Link } from "react-router-dom";
+import { FiPlus, FiPlusCircle, FiMinusCircle  } from "react-icons/fi";
+import { FaCheckCircle } from "react-icons/fa";
+import { RiUserShared2Fill, RiFileList2Fill  } from "react-icons/ri";
+import { BiDisc } from "react-icons/bi";
 
 const LIKED_SONGS_PLAYLIST_ID = "bf08f708-dc79-4626-bb40-c8e64de7af51";
 
@@ -55,7 +59,7 @@ function PlaylistsList({musicId, onClose}:{musicId: string; onClose: () => void}
     const {data:Playlists} = useFetch(() => userService.getPlaylists(), [])
 
     return(
-        <div className="scrollable absolute left-full top-0 mr-2 w-56 max-h-72 overflow-y-auto
+        <div className="scrollable absolute right-full top-0 mr-2 w-56 max-h-72 overflow-y-auto
         bg-black rounded-lg shadow-lg p-2 flex flex-col gap-1 z-50">
             {Playlists?.length
             ?(Playlists.map((playlists) =>(
@@ -103,14 +107,15 @@ export function MusicOptionsMenu({albumId, artistId, musicId, playlistId, onSele
     }
     
     return(
-        <div style={{ position: "fixed"}}
-        className="bg-black flex-col rounded-lg">
+        <div
+        className="flex bg-[#282828] flex-col rounded-lg px-4 py-2 gap-y-2">
             <div ref={containerRef} className="relative">
                 <button
-                className="flex items-center text-gray-400 hover:text-white
-                cursor-pointer"
+                className="flex items-center text-[#B3B3B3] hover:text-white
+                cursor-pointer gap-2"
                 onClick={handleOpenPlaylists}>
-                    Adicionar a Playlist 
+                    <FiPlus/>
+                    Adicionar à Playlist 
                     <BiSolidRightArrow/>
                 </button>
                 {isOpen  && <PlaylistsList
@@ -120,25 +125,39 @@ export function MusicOptionsMenu({albumId, artistId, musicId, playlistId, onSele
             
             <button
             onClick={handleClickDeleteFromPlaylist}
-            className="flex items-center text-gray-400 hover:text-white
-            cursor-pointer">
+            className="flex items-center text-[#B3B3B3] hover:text-white
+            cursor-pointer gap-2">
+                <FiMinusCircle/>
                     Remover dessa playlist
             </button>
             <button
             onClick={handleAddToFavorites}
-            className="flex items-center text-gray-400 hover:text-white
-            cursor-pointer">
+            className="flex items-center text-[#B3B3B3] hover:text-white
+            cursor-pointer gap-2">
+                <FiPlusCircle/>
                     Salvar em musicas curtidas
             </button>
-            <h2>Remover da sua biblioteca </h2>
+            <h2 className="flex items-center gap-2">
+                <FaCheckCircle/>
+                Remover da sua biblioteca 
+            </h2>
+            <div className="border border-gray-500"/>
 
             <Link to={`/ArtistScreen/${artistId}`}
-            className="flex items-center text-gray-400 hover:text-white
-            cursor-pointer">Ir para artista</Link>
+            className="flex items-center text-[#B3B3B3] hover:text-white
+            cursor-pointer gap-2">
+                <RiUserShared2Fill/>
+                Ir para artista</Link>
             <Link to={`/AlbumScreen/${albumId}`}
-            className="flex items-center text-gray-400 hover:text-white
-            cursor-pointer">Ir para album</Link>
-            <h2>Ver Créditos</h2>
+            className="flex items-center text-[#B3B3B3] hover:text-white
+            cursor-pointer gap-2">
+                <BiDisc/>
+                Ir para album</Link>
+            <h2 className="flex items-center text-[#B3B3B3]
+            cursor-pointer gap-2">
+                <RiFileList2Fill/>
+                Ver Créditos
+            </h2>
         </div>
     )
 }

@@ -97,7 +97,7 @@ export function MusicCard({ duration, title, artist, musicId, explicit = false, 
                     ref={contextMenuRef}
                     onClick={(event) => event.stopPropagation()}
                     style={{ position: "fixed", top: contextMenu.y, left: contextMenu.x }}
-                    className="z-50">
+                    className="z-100">
                     <MusicOptionsMenu
                     musicId={musicId}
                     albumId={albumId}

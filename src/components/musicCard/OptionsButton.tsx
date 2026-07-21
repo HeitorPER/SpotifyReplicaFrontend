@@ -34,13 +34,17 @@ export function MusicOptionsButton({albumId, musicId, artistId, playlistId}:Musi
             hover:rounded-sm">
                 <BsThreeDots size={20} className="text-gray-400 hover:text-white" />
             </button>
-            {isOpen && <MusicOptionsMenu
-            musicId={musicId}
-            artistId={artistId}
-            albumId={albumId}
-            playlistId={playlistId}
-            onClose={() => setIsOpen(false)}
-            onSelect={() => setIsOpen(false)}/>}
+            {isOpen && (
+                <div className="absolute right-0 z-100 w-61.5">
+                    <MusicOptionsMenu
+                    musicId={musicId}
+                    artistId={artistId}
+                    albumId={albumId}
+                    playlistId={playlistId}
+                    onClose={() => setIsOpen(false)}
+                    onSelect={() => setIsOpen(false)}/>
+                </div>
+            )}
         </div>
     )
 }

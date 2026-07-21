@@ -4,10 +4,11 @@ import { PlaylistOptionsMenu } from "./PlaylistOptionsMenu";
 
 interface PlaylistProps{
     playlistId: string;
+    name:string;
 }
 
 
-export function PlaylistOptionsButton({playlistId}:PlaylistProps){
+export function PlaylistOptionsButton({name, playlistId}:PlaylistProps){
     const [isOpen, setIsOpen] = useState(false);
     const containerRef = useRef<HTMLDivElement>(null);
 
@@ -35,6 +36,7 @@ export function PlaylistOptionsButton({playlistId}:PlaylistProps){
             {isOpen && (
                 <div className="absolute left-0 z-100 w-54">
                     <PlaylistOptionsMenu
+                    name={name}
                     playlistId={playlistId}
                     onClose={() => setIsOpen(false)}
                     onSelect={() => setIsOpen(false)}/>

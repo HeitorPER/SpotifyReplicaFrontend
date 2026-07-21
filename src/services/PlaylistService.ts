@@ -22,3 +22,7 @@ export function editPlaylistAttributes(playlistId:string, name: string, descript
         {method: "PUT", body: { name, description }}
     )
 }
+
+export function deletePlaylistById(playlistId:string){
+    return apiFetch(`/playlist/${playlistId}`,{method: "DELETE"})
+}

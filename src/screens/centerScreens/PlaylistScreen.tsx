@@ -35,6 +35,7 @@ export default function PlaylistScreen() {
                     playlistId={playlist.id} />
                 )}
                 <PlaylistOptionsButton
+                name={playlist.name}
                 playlistId={playlist.id}/>
             </div>
             <div className="grid grid-cols-[24px_4fr_2fr_2fr_50px_40px] items-center

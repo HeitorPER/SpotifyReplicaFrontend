@@ -4,19 +4,25 @@ import { IoLockClosedOutline, IoLockOpenOutline  } from "react-icons/io5";
 import { TbPinFilled } from "react-icons/tb";
 import { PLaylistDeatilsEditPopup } from "./PlaylistDetailsEditPopup";
 import { useRef, useState } from "react";
+import { ConfirmDeletion } from "./ConfirmDeletion";
 
 interface PlaylistOptionsProps{
+    name: string
     playlistId: string;
     onClose: () => void;
     onSelect: () => void;
 }
 
-export function PlaylistOptionsMenu({playlistId, onClose}: PlaylistOptionsProps){
+export function PlaylistOptionsMenu({name, playlistId, onClose }: PlaylistOptionsProps){
     const [isOpen, setOpen] = useState(false);
+    const [isOpenDelete, setOpenDelete] = useState(false);
     const containerRef = useRef<HTMLDivElement>(null);
 
     function handleOpenDetails(){
-        setOpen((prev) => !prev)
+        setOpen((prev) => !prev);
+    }
+    function handleOpendDeleteConfirm(){
+        setOpenDelete((prev) => !prev)
     }
 
 
@@ -39,12 +45,21 @@ export function PlaylistOptionsMenu({playlistId, onClose}: PlaylistOptionsProps)
                                 playlistId={playlistId}/>
                 }
             </div>
-            <button
-            className="flex items-center text-[#B3B3B3] hover:text-white
-            cursor-pointer gap-2">
-                <FiMinusCircle/>
-                Apagar playlist
-            </button>
+            <div ref={containerRef} className="relative">
+                <button
+                onClick={handleOpendDeleteConfirm}
+                className="flex items-center text-[#B3B3B3] hover:text-white
+                cursor-pointer gap-2">
+                    <FiMinusCircle/>
+                    Apagar playlist
+                </button>
+                {isOpenDelete && <ConfirmDeletion
+                            name={name}
+                            onSelect={onClose}
+                            onClose={onClose}
+                            playlistId={playlistId}/>
+                }
+            </div>
             <button className="flex items-center text-[#B3B3B3] hover:text-white
             cursor-pointer gap-2">
                 <IoLockClosedOutline/>

@@ -1,6 +1,6 @@
 import { PlaylistCard } from "../../components/playlistCards/PlaylistCard";
 import { PlaylistSquareCard } from "../../components/playlistCards/playlistSquareCard";
-import { ArtistsCardRounded } from "../../components/ArtistsCardRounded";
+import { ArtistsCardRounded } from "../../components/ArtistsCards/ArtistsCardRounded";
 import { SelectionButton } from "../../components/SelectionButtons";
 import { AlbumCard } from "../../components/albumCards/AlbunsSquareCard";
 import {Shelf} from "../../components/SelfModel";

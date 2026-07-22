@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
-import { MusicCard } from "../../components/MusicCard";
+import { MusicCard } from "../../components/musicCards/MusicCard";
 import { Shelf } from "../../components/SelfModel";
-import { ArtistsCardRounded } from "../../components/ArtistsCardRounded";
+import { ArtistsCardRounded } from "../../components/ArtistsCards/ArtistsCardRounded";
 import { AlbumCard } from "../../components/albumCards/AlbunsSquareCard";
 import * as artistService from "../../services/ArtistService";
 import { useFetch } from "../../hooks/useFetch";

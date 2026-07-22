@@ -1,6 +1,6 @@
-import { ArtistsCardRounded } from "../../components/ArtistsCardRounded";
+import { ArtistsCardRounded } from "../../components/ArtistsCards/ArtistsCardRounded";
 import { ImagePlaceholder } from "../../components/ImagePlaceholder";
-import { MusicCard } from "../../components/MusicCard";
+import { MusicCard } from "../../components/musicCards/MusicCard.tsx";
 import { PlaylistSquareCard } from "../../components/playlistCards/playlistSquareCard";
 import { Shelf } from "../../components/SelfModel";
 import * as userService from "../../services/userService.ts"

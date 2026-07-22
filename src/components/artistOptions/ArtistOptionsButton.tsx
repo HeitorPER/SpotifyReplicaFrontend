@@ -4,10 +4,11 @@ import { ArtistOptionsMenu } from "./ArtistOptionsMenu";
 
 interface ArtistProps{
     artistId: string;
+    menuAlign?: "left" | "right";
 }
 
 
-export function ArtistOptionsButton({artistId}:ArtistProps){
+export function ArtistOptionsButton({artistId, menuAlign = "left"}:ArtistProps){
     const [isOpen, setIsOpen] = useState(false);
     const containerRef = useRef<HTMLDivElement>(null);
 
@@ -33,7 +34,7 @@ export function ArtistOptionsButton({artistId}:ArtistProps){
                 <BsThreeDots size={20} className="text-gray-400 hover:text-white" />
             </button>
             {isOpen && (
-                <div className="absolute left-0 z-100 w-54">
+                <div className={`absolute ${menuAlign === "right" ? "right-0" : "left-0"} z-100 w-54`}>
                     <ArtistOptionsMenu
                     artistId={artistId}
                     onClose={() => setIsOpen(false)}

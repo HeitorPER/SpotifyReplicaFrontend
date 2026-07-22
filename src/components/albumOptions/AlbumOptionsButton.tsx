@@ -5,10 +5,11 @@ import { BsThreeDots } from "react-icons/bs";
 interface AlbumOptionsButtonProps{
     artistId:string;
     albumId: string;
+    menuAlign?: "left" | "right";
 }
 
 
-export function AlbumOptionsButton({albumId, artistId}:AlbumOptionsButtonProps){
+export function AlbumOptionsButton({albumId, artistId, menuAlign = "left"}:AlbumOptionsButtonProps){
     const [isOpen, setIsOpen] = useState(false);
     const containerRef = useRef<HTMLDivElement>(null);
     
@@ -34,7 +35,7 @@ export function AlbumOptionsButton({albumId, artistId}:AlbumOptionsButtonProps){
                 <BsThreeDots size={20} className="text-gray-400 hover:text-white" />
             </button>
             {isOpen && (
-                <div className="absolute left-0 z-100 w-54">
+                <div className={`absolute ${menuAlign === "right" ? "right-0" : "left-0"} z-100 w-54`}>
                     <AlbumOptionsMenu
                         albumId={albumId}
                         artistId={artistId}/>

@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import { ImagePlaceholder } from "../../components/ImagePlaceholder";
-import { MusicCard } from "../../components/MusicCard";
+import { MusicCard } from "../../components/musicCards/MusicCard";
 import * as playlistService from "../../services/PlaylistService";
 import { useFetch } from "../../hooks/useFetch";
 import { LuClock3 } from "react-icons/lu";

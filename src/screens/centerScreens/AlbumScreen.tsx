@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import { ImagePlaceholder } from "../../components/ImagePlaceholder";
-import { MusicCard } from "../../components/MusicCard";
+import { MusicCard } from "../../components/musicCards/MusicCard";
 import * as albumService from "../../services/AlbumService";
 import { useFetch } from "../../hooks/useFetch";
 import { AlbumPlayButton } from "../../components/albumOptions/AlbumPlayButton";

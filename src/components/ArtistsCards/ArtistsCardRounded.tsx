@@ -1,17 +1,15 @@
 import { Link } from "react-router-dom"
 import { ImagePlaceholder } from "../ImagePlaceholder"
-import { AlbumOptionsMenu } from "../albumOptions/AlbumOptionsMenu"
-import { useFetch } from "../../hooks/useFetch"
-import * as albumService from "../../services/AlbumService"
+import { ArtistOptionsMenu } from "../artistOptions/ArtistOptionsMenu"
 import { useEffect, useRef, useState } from "react"
 
-interface AlbumCardProps {
+interface ArtistsCardProps {
     name: string
-    albumId: string
+    artistId: string
     imageUrl?: string
 }
 
-export function AlbumSquareCard({ name, albumId, imageUrl }: AlbumCardProps) {
+export function ArtistsCardRounded({ name, artistId, imageUrl}: ArtistsCardProps) {
     const [contextMenu, setContextMenu] = useState<{ x: number; y: number } | null>(null);
     const contextMenuRef = useRef<HTMLDivElement>(null);
 
@@ -30,34 +28,31 @@ export function AlbumSquareCard({ name, albumId, imageUrl }: AlbumCardProps) {
         return () => document.removeEventListener("mousedown", handleClickOutside);
     }, []);
 
-    const { data: albumData } = useFetch(
-        () => albumId ? albumService.getAlbumById(albumId) : Promise.resolve(null),
-        [albumId]
-    );
-
     return (
-        <Link to={`/AlbumScreen/${albumId}`}
-        onContextMenu={handleContextMenu}
-        className="flex flex-col cursor-pointer hover:bg-[#2D2D2D] rounded-lg p-2 w-40 shrink-0">
-            <div className="w-full aspect-square rounded overflow-hidden mb-2">
+        <Link className="flex flex-col cursor-pointer
+        hover:bg-[#2D2D2D] rounded-lg p-2 w-40 shrink-0"
+        to={`/ArtistScreen/${artistId}`}
+        onContextMenu={handleContextMenu}>
+            <div className="w-full aspect-square rounded-full overflow-hidden mb-2">
                 {imageUrl
                     ? <img src={imageUrl} alt={name} className="w-full h-full object-cover" />
-                    : <ImagePlaceholder type="playlist" />
+                    : <ImagePlaceholder type="artist" />
                 }
             </div>
             <div className="flex flex-col min-w-0">
                 <span className="text-white text-sm font-medium line-clamp-2">{name}</span>
-                <span className="text-gray-400 text-xs">Álbum</span>
+                <span className="text-gray-400 text-xs">Artista</span>
             </div>
-            {contextMenu && albumData && (
+            {contextMenu && (
                 <div
                     ref={contextMenuRef}
                     onClick={(event) => { event.preventDefault(); event.stopPropagation(); }}
                     style={{ position: "fixed", top: contextMenu.y, left: contextMenu.x }}
                     className="z-100">
-                    <AlbumOptionsMenu
-                    albumId={albumId}
-                    artistId={albumData.artistId}/>
+                    <ArtistOptionsMenu
+                    artistId={artistId}
+                    onClose={() => setContextMenu(null)}
+                    onSelect={() => setContextMenu(null)}/>
                 </div>
             )}
         </Link>

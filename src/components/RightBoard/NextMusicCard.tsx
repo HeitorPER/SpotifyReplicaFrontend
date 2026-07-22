@@ -2,7 +2,7 @@ import { ImagePlaceholder } from "../ImagePlaceholder"
 import { usePlayer } from "../../context/PlayerContext"
 import { useFetch } from "../../hooks/useFetch"
 import * as artistService from "../../services/ArtistService"
-import { MusicOptionsButton } from "../musicCard/OptionsButton"
+import { MusicOptionsButton } from "../musicCardOptions/OptionsButton"
 
 interface NextMusicCardProps {
     musicId: string
@@ -59,7 +59,11 @@ export function NextMusicCard({ musicId, title, artist, explicit = false, imageU
                     </div>
                     {timeconverter(duration)}
                     <div onClick={(event) => event.stopPropagation()} className="shrink-0">
-                        <MusicOptionsButton/>
+                        <MusicOptionsButton
+                        musicId={musicId}
+                        artistId={artist}
+                        albumId={albumId ?? ""}
+                        playlistId={playlistId}/>
                     </div>
                 </div>
             </button>

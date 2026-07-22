@@ -1,10 +1,14 @@
 import { useParams } from "react-router-dom";
-import { MusicCard } from "../../components/MusicCard";
+import { MusicCard } from "../../components/musicCards/MusicCard";
 import { Shelf } from "../../components/SelfModel";
-import { ArtistsCardRounded } from "../../components/ArtistsCardRounded";
-import { AlbumCard } from "../../components/albumCards/AlbunsSquareCard";
+import { ArtistsCardRounded } from "../../components/ArtistsCards/ArtistsCardRounded";
+import { AlbumSquareCard } from "../../components/albumCards/AlbunsSquareCard";
 import * as artistService from "../../services/ArtistService";
 import { useFetch } from "../../hooks/useFetch";
+import { FollowUnfollowButton } from "../../components/buttons/FollowUnfollowButton";
+import { ArtistOptionsButton } from "../../components/artistOptions/ArtistOptionsButton";
+import { ArtistPlayButton } from "../../components/artistOptions/ArtistPlayButton";
+
 
 export default function ArtistScreen() {
     const { artistId } = useParams<{ artistId: string }>();
@@ -20,7 +24,7 @@ export default function ArtistScreen() {
     return (
         <div className="h-full w-full flex flex-col items-start
         border-2 rounded-lg text-gray-300
-        gap-y-4 border-transparent
+        gap-y-2 border-transparent
         bg-[#121212]
         scrollbar-custom overflow-y-auto">
             <div className="bg-linear-to-t from-gray-600 to-[#121212] flex w-full items-center gap-x-4 py-6 px-5">
@@ -29,6 +33,14 @@ export default function ArtistScreen() {
                     <h2 className="font-bold text-5xl">{artist.name}</h2>
                     <h2 className="text-sm text-gray-400">{formattedListeners} ouvintes mensais</h2>
                 </div>
+            </div>
+            <div className="pl-4 flex w-full justify-start items-center gap-3">
+                {artistSongs && artistSongs.length > 0 && (
+                    <ArtistPlayButton musicId={artistSongs[0].id} />
+                )}
+                <FollowUnfollowButton/>
+                <ArtistOptionsButton
+                artistId={artist.id}/>
             </div>
 
             <div className="flex flex-col w-full py-6 px-5 gap-y-6">
@@ -41,6 +53,7 @@ export default function ArtistScreen() {
                                     key={song.id}
                                     musicId={song.id}
                                     title={song.title}
+                                    albumId={song.albumId}
                                     duration={song.duration}
                                     artist={artist.name}
                                     explicit={song.explicit}
@@ -54,7 +67,7 @@ export default function ArtistScreen() {
                 <Shelf label="Álbuns">
                     <div className="flex gap-x-3">
                         {artistAlbums?.map((album) => (
-                            <AlbumCard key={album.id} name={album.title} albumId={album.id} />
+                            <AlbumSquareCard key={album.id} name={album.title} albumId={album.id} />
                         ))}
                     </div>
                 </Shelf>

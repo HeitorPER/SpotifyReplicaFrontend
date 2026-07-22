@@ -1,10 +1,10 @@
-import { ImagePlaceholder } from "./ImagePlaceholder"
-import { usePlayer } from "../context/PlayerContext"
-import { useFetch } from "../hooks/useFetch"
-import * as artistService from "../services/ArtistService"
-import * as albumService from "../services/AlbumService"
-import { MusicOptionsButton } from "./musicCard/OptionsButton"
-import { MusicOptionsMenu } from "./musicCard/MusicOptionsMenu"
+import { ImagePlaceholder } from "../ImagePlaceholder"
+import { usePlayer } from "../../context/PlayerContext"
+import { useFetch } from "../../hooks/useFetch"
+import * as artistService from "../../services/ArtistService"
+import * as albumService from "../../services/AlbumService"
+import { MusicOptionsButton } from "../musicCardOptions/OptionsButton"
+import { MusicOptionsMenu } from "../musicCardOptions/MusicOptionsMenu"
 import { useEffect, useRef, useState } from "react"
 
 interface MusicCardProps {
@@ -15,7 +15,7 @@ interface MusicCardProps {
     imageUrl?: string
     trackNumber?: number
     playlistId?: string
-    albumId?: string
+    albumId: string
     duration: number
 }
 
@@ -85,7 +85,12 @@ export function MusicCard({ duration, title, artist, musicId, explicit = false, 
                 <h2 className="text-gray-400 text-xs truncate">data de adição</h2>
                 {timeconverter(duration)}
                 <div onClick={(event) => event.stopPropagation()} className="justify-self-center">
-                    <MusicOptionsButton/>
+                    <MusicOptionsButton
+                    artistId={artist}
+                    artistName={artistData?.name || artist}
+                    albumId={albumId}
+                    musicId={musicId}
+                    playlistId={playlistId}/>
                 </div>
             </div>
             {contextMenu && (
@@ -93,8 +98,15 @@ export function MusicCard({ duration, title, artist, musicId, explicit = false, 
                     ref={contextMenuRef}
                     onClick={(event) => event.stopPropagation()}
                     style={{ position: "fixed", top: contextMenu.y, left: contextMenu.x }}
-                    className="z-50">
-                    <MusicOptionsMenu/>
+                    className="z-100">
+                    <MusicOptionsMenu
+                    musicId={musicId}
+                    albumId={albumId}
+                    artistName={artistData?.name || artist}
+                    playlistId={playlistId}
+                    artistId={artist}
+                    onClose={() => setContextMenu(null)}
+                    onSelect={() => setContextMenu(null)}/>
                 </div>
             )}
         </button>

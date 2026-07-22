@@ -1,11 +1,13 @@
-import { useNavigate, useSearchParams } from "react-router-dom";
-import { usePlayer } from "../../context/PlayerContext";
+import { useSearchParams } from "react-router-dom";
 import type { SearchResults, SearchResultItem } from "../../types/SearchResults";
 import { emptySearchResults } from "../../types/SearchResults";
-import { ImagePlaceholder } from "../../components/ImagePlaceholder";
 import { useFetch } from "../../hooks/useFetch";
 import * as searchService from "../../services/SearchService";
 import { SelectionButton } from "../../components/SelectionButtons";
+import { MusicResultCard } from "../../components/musicCards/MusicResultCard";
+import { ArtistResultCard } from "../../components/ArtistsCards/ArtistResultCard";
+import { AlbumResultCard } from "../../components/albumCards/AlbumResultCard";
+import { PlaylistResultCard } from "../../components/playlistCards/PlaylistResultCard";
 
  type QuickResult =
     | { type: "music"; data: SearchResultItem }
@@ -33,24 +35,30 @@ function getQuickResults(results: SearchResults, limit: number): QuickResult[] {
     return quickresults;
 }
 
-function quickResultLabel(item: QuickResult): {title: string, subtitle: string} {
+function renderQuickResult(item: QuickResult) {
+    const key = `${item.type}-${item.data.id}`;
     switch (item.type) {
         case "music":
-            return { title: item.data.name, subtitle: "Música • " + item.data.artistName};
-        case "album":
-            return { title: item.data.name, subtitle: "Álbum • " + item.data.artistName};
+            return (
+                <MusicResultCard
+                    key={key}
+                    name={item.data.name}
+                    musicId={item.data.id}
+                    artistName={item.data.artistName || ""}
+                    explicit={item.data.explicit}
+                />
+            );
         case "artist":
-            return { title: item.data.name, subtitle: "Artist"};
+            return <ArtistResultCard key={key} artistId={item.data.id} name={item.data.name} />;
+        case "album":
+            return <AlbumResultCard key={key} albumId={item.data.id} name={item.data.name} />;
         case "playlist":
-            return { title: item.data.name, subtitle: "Playlist"};
+            return <PlaylistResultCard key={key} playlistId={item.data.id} name={item.data.name} />;
     }
-
 }
 
 export default function SearchScreen(){
 
-    const navigate = useNavigate();
-    const { play } = usePlayer();
     const [searchParams] = useSearchParams();
     const query = searchParams.get("q") ?? "";
 
@@ -61,20 +69,6 @@ export default function SearchScreen(){
 
     const quickResults = getQuickResults(results ?? emptySearchResults, 10);
 
-    const handleItemClick = (item: QuickResult) => {
-        if(item.type == "music"){
-            play(item.data.id);
-        }else if(item.type == "playlist"){
-            navigate(`/PlaylistScreen/${item.data.id}`);
-        }else if(item.type == "album"){
-            navigate(`/AlbumScreen/${item.data.id}`);
-        }else if(item.type == "artist"){
-            navigate(`/ArtistScreen/${item.data.id}`);
-        }
-    };
-
-   
-    
     return(
         <div className="h-full w-full flex flex-col items-start
                 border-2 rounded-lg text-gray-300
@@ -90,29 +84,9 @@ export default function SearchScreen(){
             {quickResults.length === 0 ? (
                 <p className="text-gray-400 text-sm p-3">Nenhum resultado encontrado</p>
             ) : (
-                quickResults.map((item) => {
-                    const { title, subtitle } = quickResultLabel(item);
-                    const placeholderType = item.type === "music" ? "song" :
-                                            item.type === "artist" ? "artist" :
-                                            "playlist";
-                    return (
-                        <button
-                            key={`${item.type}-${item.data.id}`}
-                            type="button"
-                            onClick={() => handleItemClick(item)}
-                            className="w-full text-left cursor-pointer flex items-center gap-2
-                            p-2 hover:bg-[#3E3E3E] rounded-sm"
-                        >
-                            <div className="w-10 h-10 shrink-0 rounded overflow-hidden">
-                                <ImagePlaceholder type={placeholderType} />
-                            </div>
-                            <div className="flex flex-col min-w-0">
-                                <span className="text-white text-sm truncate">{title}</span>
-                                <span className="text-gray-400 text-xs truncate">{subtitle}</span>
-                            </div>
-                        </button>
-                    );
-                })
+                <div className="w-full flex flex-col gap-y-1">
+                    {quickResults.map(renderQuickResult)}
+                </div>
             )}
 
 

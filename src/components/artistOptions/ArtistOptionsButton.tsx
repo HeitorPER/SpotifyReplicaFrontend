@@ -1,8 +1,14 @@
 import { useEffect, useRef, useState } from "react";
 import { BsThreeDots } from "react-icons/bs";
-import { MusicOptionsMenu } from "./MusicOptionsMenu";
+import { ArtistOptionsMenu } from "./ArtistOptionsMenu";
 
-export function MusicOptionsButton(){
+interface ArtistProps{
+    artistId: string;
+    menuAlign?: "left" | "right";
+}
+
+
+export function ArtistOptionsButton({artistId, menuAlign = "left"}:ArtistProps){
     const [isOpen, setIsOpen] = useState(false);
     const containerRef = useRef<HTMLDivElement>(null);
 
@@ -21,14 +27,20 @@ export function MusicOptionsButton(){
     }
 
     return(
-        <div ref={containerRef} className="relative"
-        style={{ position: "fixed"}}>
+        <div ref={containerRef} className="relative">
             <button type="button" onClick={handleClick} 
             className="cursor-pointer hover:border-gray-400 hover:border
             hover:rounded-sm">
                 <BsThreeDots size={20} className="text-gray-400 hover:text-white" />
             </button>
-            {isOpen && <MusicOptionsMenu />}
+            {isOpen && (
+                <div className={`absolute ${menuAlign === "right" ? "right-0" : "left-0"} z-100 w-54`}>
+                    <ArtistOptionsMenu
+                    artistId={artistId}
+                    onClose={() => setIsOpen(false)}
+                    onSelect={() => setIsOpen(false)}/>
+                </div>
+            )}
         </div>
     )
 }

@@ -1,8 +1,10 @@
 import { useParams } from "react-router-dom";
 import { ImagePlaceholder } from "../../components/ImagePlaceholder";
-import { MusicCard } from "../../components/MusicCard";
+import { MusicCard } from "../../components/musicCards/MusicCard";
 import * as albumService from "../../services/AlbumService";
 import { useFetch } from "../../hooks/useFetch";
+import { AlbumPlayButton } from "../../components/albumOptions/AlbumPlayButton";
+import { AlbumOptionsButton } from "../../components/albumOptions/AlbumOptionsButton";
 
 export default function AlbumScreen() {
     const { albumId } = useParams<{ albumId: string }>()
@@ -28,6 +30,16 @@ export default function AlbumScreen() {
                     <h2 className="text-sm text-gray-400">{albumSongs?.length} músicas</h2>
                 </div>
             </div>
+            <div className="pl-4 flex w-full justify-start items-center gap-3">
+                {album.musics && album.musics.length > 0 && (
+                    <AlbumPlayButton 
+                    musicId={album.musics[0].id}
+                    albumId={album.id} />
+                )}
+                <AlbumOptionsButton
+                    albumId={album.id}
+                    artistId={album.artistId}/>
+            </div>
             <div className="flex flex-col w-full py-6 px-5">
                 <div className="flex flex-col">
                     {albumSongs?.map((song, index) => (
@@ -39,7 +51,7 @@ export default function AlbumScreen() {
                             artist={album.artistName}
                             explicit={song.explicit}
                             trackNumber={index + 1}
-                            albumId={albumId}
+                            albumId={albumId as string}
                         />
                     ))}
                 </div>

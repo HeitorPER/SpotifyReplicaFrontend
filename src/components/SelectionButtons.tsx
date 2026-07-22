@@ -1,12 +1,10 @@
-import { useState} from "react";
-
 interface SelectionButtonProps {
     label: string
+    selected?: boolean
+    onClick?: () => void
 }
 
-export function SelectionButton({ label }: SelectionButtonProps){
-    const [selected, isSelected] = useState(false);
-    
+export function SelectionButton({ label, selected = false, onClick }: SelectionButtonProps){
     return(
         <button className={`flex items-center justify-between
             rounded-4xl px-3 py-1 text-sm cursor-pointer hover:bg-[#4E4E4E]
@@ -16,9 +14,8 @@ export function SelectionButton({ label }: SelectionButtonProps){
                     : "bg-[#343333] text-white hover:bg-[#4E4E4E]"
                 }
             `}
-            onClick={() => isSelected(!selected)}
+            onClick={onClick}
             >
-            {selected }
             <h2>{label}</h2>
         </button>
     )

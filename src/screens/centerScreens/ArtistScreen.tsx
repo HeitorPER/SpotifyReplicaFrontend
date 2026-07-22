@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 import { MusicCard } from "../../components/musicCards/MusicCard";
 import { Shelf } from "../../components/SelfModel";
 import { ArtistsCardRounded } from "../../components/ArtistsCards/ArtistsCardRounded";
-import { AlbumCard } from "../../components/albumCards/AlbunsSquareCard";
+import { AlbumSquareCard } from "../../components/albumCards/AlbunsSquareCard";
 import * as artistService from "../../services/ArtistService";
 import { useFetch } from "../../hooks/useFetch";
 import { FollowUnfollowButton } from "../../components/buttons/FollowUnfollowButton";
@@ -67,7 +67,7 @@ export default function ArtistScreen() {
                 <Shelf label="Álbuns">
                     <div className="flex gap-x-3">
                         {artistAlbums?.map((album) => (
-                            <AlbumCard key={album.id} name={album.title} albumId={album.id} />
+                            <AlbumSquareCard key={album.id} name={album.title} albumId={album.id} />
                         ))}
                     </div>
                 </Shelf>

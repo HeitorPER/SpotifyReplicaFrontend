@@ -2,7 +2,7 @@ import { PlaylistCard } from "../../components/playlistCards/PlaylistCard";
 import { PlaylistSquareCard } from "../../components/playlistCards/playlistSquareCard";
 import { ArtistsCardRounded } from "../../components/ArtistsCards/ArtistsCardRounded";
 import { SelectionButton } from "../../components/SelectionButtons";
-import { AlbumCard } from "../../components/albumCards/AlbunsSquareCard";
+import { AlbumSquareCard } from "../../components/albumCards/AlbunsSquareCard";
 import {Shelf} from "../../components/SelfModel";
 import { useFetch } from "../../hooks/useFetch";
 import * as userService from "../../services/userService.ts"
@@ -56,7 +56,7 @@ export default function HomeScreen() {
             <Shelf label="Álbuns recentes">
                 <div className="flex gap-x-3">
                     {recentAlbums?.slice(0, 4).map((album) => (
-                        <AlbumCard key={album.id} name={album.title} albumId={album.id}/>
+                        <AlbumSquareCard key={album.id} name={album.title} albumId={album.id}/>
                     ))}
                 </div>
             </Shelf>

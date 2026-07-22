@@ -89,6 +89,7 @@ export function RightBoard(){
                 <div className="w-full flex-1">
                     <CreditsCard
                         artist_name={artist.name}
+                        song_title={currentSong.title}
                     />
                 </div>
             )}

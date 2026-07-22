@@ -24,6 +24,7 @@ export function LeftBoard(){
     const {data:artists} = useFetch(() => userService.getRecentArtists(), [])
     const [playlists, setPlaylists] = useState<Playlist[]>([]);
     const [activeFilter, setActiveFilter] = useState<FilterType>("all");
+    const [searchQuery, setSearchQuery] = useState("");
 
     useEffect(() => {
         if (Playlists) setPlaylists(Playlists);
@@ -32,6 +33,9 @@ export function LeftBoard(){
     const handlePlaylistCreated = (playlist: Playlist) => {
         setPlaylists((prev) => [...prev, playlist]);
     };
+
+    const normalizedQuery = searchQuery.trim().toLowerCase();
+    const matchQuery = (name: string) => name.toLowerCase().includes(normalizedQuery);
 
     const showPlaylists = activeFilter === "all" || activeFilter === "playlist";
     const showAlbums = activeFilter === "all" || activeFilter === "album";
@@ -63,32 +67,38 @@ export function LeftBoard(){
                     ))}
                 </div>
                 <div>
-                    <SearchBar />
+                    <SearchBar value={searchQuery} onChange={setSearchQuery} />
                 </div>
             </div>
             <div className="w-full flex-1 min-h-0 px-4">
                 <div className="h-full flex flex-col items-start justify-start py-2 gap-y-1 scrollbar-custom overflow-y-auto">
-                    {showPlaylists && playlists.map((playlist) => (
-                        <PlaylistCard
-                            key={playlist.id}
-                            name={playlist.name}
-                            playlistId={playlist.id}
-                        />
-                    ))}
-                    {showAlbums && albums?.map((album) => (
-                        <AlbumCard
-                            key={album.id}
-                            name={album.title}
-                            albumId={album.id}
-                        />
-                    ))}
-                    {showArtists && artists?.map((artist) => (
-                        <ArtistCard
-                            key={artist.id}
-                            name={artist.name}
-                            artistId={artist.id}
-                        />
-                    ))}
+                    {showPlaylists && playlists
+                        .filter((playlist) => matchQuery(playlist.name))
+                        .map((playlist) => (
+                            <PlaylistCard
+                                key={playlist.id}
+                                name={playlist.name}
+                                playlistId={playlist.id}
+                            />
+                        ))}
+                    {showAlbums && albums
+                        ?.filter((album) => matchQuery(album.title))
+                        .map((album) => (
+                            <AlbumCard
+                                key={album.id}
+                                name={album.title}
+                                albumId={album.id}
+                            />
+                        ))}
+                    {showArtists && artists
+                        ?.filter((artist) => matchQuery(artist.name))
+                        .map((artist) => (
+                            <ArtistCard
+                                key={artist.id}
+                                name={artist.name}
+                                artistId={artist.id}
+                            />
+                        ))}
                 </div>
             </div>
         </div>

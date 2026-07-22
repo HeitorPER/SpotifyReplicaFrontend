@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom"
-import { ImagePlaceholder } from "./ImagePlaceholder"
+import { ImagePlaceholder } from "../ImagePlaceholder"
 
 interface ArtistsCardProps {
     name: string

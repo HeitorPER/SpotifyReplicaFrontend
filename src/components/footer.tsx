@@ -36,7 +36,7 @@ export function Footer(){
             [albumId]
         );
     
-        const queueMusics = playlist?.musics ?? album?.musics ?? [];
+        const queueMusics = playlist?.musics?.map(({ music }) => music) ?? album?.musics ?? [];
         const currentQueueIndex = currentSong
             ? queueMusics.findIndex((m) => m.id === currentSong.id)
             : -1;

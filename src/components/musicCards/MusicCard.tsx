@@ -7,7 +7,7 @@ import { MusicOptionsButton } from "../musicCardOptions/OptionsButton"
 import { MusicOptionsMenu } from "../musicCardOptions/MusicOptionsMenu"
 import { useEffect, useRef, useState } from "react"
 
-interface MusicCardProps {
+export interface MusicCardProps {
     title: string
     artist: string
     musicId: string

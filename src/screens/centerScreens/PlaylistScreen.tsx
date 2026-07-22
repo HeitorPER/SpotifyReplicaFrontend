@@ -31,7 +31,7 @@ export default function PlaylistScreen() {
             </div>
             <div className="pl-4 flex w-full justify-start items-center gap-3">
                 {playlist.musics && playlist.musics.length > 0 && (
-                    <PlaylistPlayButton musicId={playlist.musics[0].id}
+                    <PlaylistPlayButton musicId={playlist.musics[0].music.id}
                     playlistId={playlist.id} />
                 )}
                 <PlaylistOptionsButton
@@ -50,16 +50,16 @@ export default function PlaylistScreen() {
             <div className="flex flex-col w-full pb-3 px-5">
                 <div className="flex flex-col">
                     {playlist.musics && playlist.musics.length > 0 ? (
-                        playlist.musics.map((song, index) => (
+                        playlist.musics.map(({ position, music }) => (
                             <MusicCard
-                                key={song.id}
-                                musicId={song.id}
-                                title={song.title}
-                                albumId={song.albumId}
-                                duration={song.duration}
-                                artist={song.artistId}
-                                explicit={song.explicit}
-                                trackNumber={index + 1}
+                                key={music.id}
+                                musicId={music.id}
+                                title={music.title}
+                                albumId={music.albumId}
+                                duration={music.duration}
+                                artist={music.artistId}
+                                explicit={music.explicit}
+                                trackNumber={position + 1}
                                 playlistId={playlistId}
                             />
                         ))

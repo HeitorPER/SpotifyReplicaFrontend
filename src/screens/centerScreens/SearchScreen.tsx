@@ -44,7 +44,7 @@ function renderQuickResult(item: QuickResult) {
                     key={key}
                     name={item.data.name}
                     musicId={item.data.id}
-                    artistName={item.data.artistName}
+                    artistName={item.data.artistName || ""}
                     explicit={item.data.explicit}
                 />
             );

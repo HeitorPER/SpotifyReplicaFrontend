@@ -87,6 +87,7 @@ export function MusicCard({ duration, title, artist, musicId, explicit = false, 
                 <div onClick={(event) => event.stopPropagation()} className="justify-self-center">
                     <MusicOptionsButton
                     artistId={artist}
+                    artistName={artistData?.name || artist}
                     albumId={albumId}
                     musicId={musicId}
                     playlistId={playlistId}/>
@@ -101,6 +102,7 @@ export function MusicCard({ duration, title, artist, musicId, explicit = false, 
                     <MusicOptionsMenu
                     musicId={musicId}
                     albumId={albumId}
+                    artistName={artistData?.name || artist}
                     playlistId={playlistId}
                     artistId={artist}
                     onClose={() => setContextMenu(null)}

@@ -9,7 +9,7 @@ import { useEffect, useRef, useState } from "react"
 interface MusicResultCardProps {
     name?: string
     musicId: string
-    artistName?: string
+    artistName: string
     explicit?: boolean
     imageUrl?: string
 }
@@ -78,6 +78,7 @@ export function MusicResultCard({ name, musicId, artistName, explicit, imageUrl 
                             <MusicOptionsButton
                             artistId={musicData.artistId}
                             albumId={musicData.albumId}
+                            artistName={artistName}
                             musicId={musicId}/>
                         )}
                     </div>
@@ -93,6 +94,7 @@ export function MusicResultCard({ name, musicId, artistName, explicit, imageUrl 
                     musicId={musicId}
                     albumId={musicData.albumId}
                     artistId={musicData.artistId}
+                    artistName={artistName}
                     onClose={() => setContextMenu(null)}
                     onSelect={() => setContextMenu(null)}/>
                 </div>

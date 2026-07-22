@@ -10,6 +10,7 @@ import { DragDropProvider, type DragEndEvent } from '@dnd-kit/react';
 import { move } from '@dnd-kit/helpers';
 import type { PlaylistMusicEntry } from "../../types/Playlist";
 import { useEffect, useState } from "react";
+import { IoMdPerson } from "react-icons/io";
 
 export default function PlaylistScreen() {
     const { playlistId } = useParams<{ playlistId: string }>();
@@ -19,6 +20,15 @@ export default function PlaylistScreen() {
     useEffect(() => {
         setMusics(playlist?.musics ?? []);
     }, [playlist]);
+
+    function getTotalPlaylistTime(){
+        const totalSeconds = musics.reduce((total, { music }) => total + music.duration, 0);
+        const totalMinutes = Math.floor(totalSeconds / 60);
+        const hours = Math.floor(totalMinutes / 60);
+        const minutes = totalMinutes % 60;
+
+        return hours > 0 ? `${hours} h ${minutes} min` : `${minutes} min`;
+    }
 
     function handleDragEnd(event: DragEndEvent){
         const { source, target } = event.operation;
@@ -56,7 +66,14 @@ export default function PlaylistScreen() {
                     <h2 className="text-sm text-gray-400">Playlist</h2>
                     <h2 className="font-bold text-5xl">{playlist.name}</h2>
                     <h2 className="text-sm text-gray-400">{playlist.description}</h2>
-                    <h2 className="text-sm text-gray-400">{playlist.musicQtd} músicas</h2>
+                    <div className="flex items-center gap">
+                        <div className="w-4 h-4 rounded-full bg-[#343333] overflow-hidden flex items-center justify-center shrink-0">
+                            <IoMdPerson className="text-gray-300 opacity-80" style={{ width: '65%', height: '65%' }} />
+                        </div>
+                        <h2 className="text-sm text-gray-400 px-1">Heitor Giometti •</h2>
+                        <h2 className="text-sm text-gray-400">{playlist.musicQtd} músicas ,</h2>
+                        <h2 className="text-sm text-gray-400">{getTotalPlaylistTime()}</h2>
+                </div>
                 </div>
             </div>
             <div className="pl-4 flex w-full justify-start items-center gap-3">

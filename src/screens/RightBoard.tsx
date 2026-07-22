@@ -62,6 +62,7 @@ export function RightBoard(){
                 {currentSong && (
                     <MusicOptionsButton
                     albumId={currentSong.albumId}
+                    artistName={artist?.name ?? ""}
                     musicId={currentSong.id}
                     artistId={currentSong.artistId}
                     playlistId={playlistId ?? undefined}
@@ -99,7 +100,8 @@ export function RightBoard(){
                     <NextMusicCard
                         musicId={nextSong.id}
                         title={nextSong.title}
-                        artist={nextArtistName}
+                        artistId={nextSong.artistId}
+                        artistName={nextArtistName}
                         explicit={nextSong.explicit}
                         playlistId={playlistId ?? undefined}
                         duration={nextSong.duration}

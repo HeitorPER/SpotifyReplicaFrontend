@@ -123,13 +123,14 @@ export function MusicOptionsMenu({albumId, artistId, musicId, playlistId, onSele
                             onClose={onClose}/>}
             </div>
             
+            {playlistId &&
             <button
             onClick={handleClickDeleteFromPlaylist}
             className="flex items-center text-[#B3B3B3] hover:text-white
             cursor-pointer gap-2">
                 <FiMinusCircle/>
                     Remover dessa playlist
-            </button>
+            </button>}
             <button
             onClick={handleAddToFavorites}
             className="flex items-center text-[#B3B3B3] hover:text-white

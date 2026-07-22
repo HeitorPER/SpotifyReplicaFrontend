@@ -5,9 +5,9 @@ import * as artistService from "../../services/ArtistService"
 import * as albumService from "../../services/AlbumService"
 import { MusicOptionsButton } from "../musicCardOptions/OptionsButton"
 import { MusicOptionsMenu } from "../musicCardOptions/MusicOptionsMenu"
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useRef, useState, type Ref } from "react"
 
-interface MusicCardProps {
+export interface MusicCardProps {
     title: string
     artist: string
     musicId: string
@@ -17,9 +17,10 @@ interface MusicCardProps {
     playlistId?: string
     albumId: string
     duration: number
+    isDragging?: boolean
 }
 
-export function MusicCard({ duration, title, artist, musicId, explicit = false, imageUrl, trackNumber, playlistId, albumId, }: MusicCardProps) {
+export function MusicCard({ ref, duration, title, artist, musicId, explicit = false, imageUrl, trackNumber, playlistId, albumId, isDragging = false }: MusicCardProps & { ref?: Ref<HTMLButtonElement> }) {
     const { play } = usePlayer();
     const [contextMenu, setContextMenu] = useState<{ x: number; y: number } | null>(null);
     const contextMenuRef = useRef<HTMLDivElement>(null);
@@ -57,10 +58,11 @@ export function MusicCard({ duration, title, artist, musicId, explicit = false, 
 
     return (
         <button
+            ref={ref}
             type="button"
             onClick={() => play(musicId, { playlistId, albumId })}
             onContextMenu={handleContextMenu}
-            className="w-full text-left cursor-pointer">
+            className={`w-full text-left cursor-pointer ${isDragging ? "opacity-50" : ""}`}>
             <div className="grid grid-cols-[24px_4fr_2fr_2fr_50px_40px] items-center gap-x-4
             rounded-lg hover:bg-[#2D2D2D] cursor-pointer w-full p-2">
                 <span className="text-gray-400 text-sm text-center shrink-0">{trackNumber}</span>

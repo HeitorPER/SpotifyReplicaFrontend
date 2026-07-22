@@ -17,6 +17,10 @@ export function deleteMusicById(playlistId: string, musicId:string): Promise<Pla
     return apiFetch<Playlist>(`/playlist/${playlistId}/${musicId}`, {method: "DELETE"})
 }
 
+export function reorderPlaylistMusics(playlistId: string, musicIds: string[]): Promise<Playlist>{
+    return apiFetch<Playlist>(`/playlist/${playlistId}/musics`, {method: "PUT", body: { musicIds }})
+}
+
 export function editPlaylistAttributes(playlistId:string, name: string, description:string): Promise<UpdatePlaylistDetails>{
     return apiFetch<UpdatePlaylistDetails>(`/playlist/${playlistId}/attributes`,
         {method: "PUT", body: { name, description }}

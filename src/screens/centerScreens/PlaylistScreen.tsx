@@ -1,15 +1,45 @@
 import { useParams } from "react-router-dom";
 import { ImagePlaceholder } from "../../components/ImagePlaceholder";
-import { MusicCard } from "../../components/musicCards/MusicCard";
+import { SortableMusicCard } from "../../components/musicCards/SortableMusicCard";
 import * as playlistService from "../../services/PlaylistService";
 import { useFetch } from "../../hooks/useFetch";
 import { LuClock3 } from "react-icons/lu";
 import { PlaylistOptionsButton } from "../../components/playlistOptions/PlaylistOptionsButton";
 import { PlaylistPlayButton } from "../../components/playlistOptions/PlaylistPlayButton";
+import { DragDropProvider, type DragEndEvent } from '@dnd-kit/react';
+import { move } from '@dnd-kit/helpers';
+import type { PlaylistMusicEntry } from "../../types/Playlist";
+import { useEffect, useState } from "react";
 
 export default function PlaylistScreen() {
     const { playlistId } = useParams<{ playlistId: string }>();
     const { data: playlist } = useFetch(() => playlistService.getPlaylistById(playlistId as string), [playlistId]);
+    const [musics, setMusics] = useState<PlaylistMusicEntry[]>([]);
+
+    useEffect(() => {
+        setMusics(playlist?.musics ?? []);
+    }, [playlist]);
+
+    function handleDragEnd(event: DragEndEvent){
+        const { source, target } = event.operation;
+
+        if(!source || !target || !playlistId) return;
+
+        const previousMusics = musics;
+        const musicIds = musics.map(({ music }) => music.id);
+        const newMusicIds = move(musicIds, event);
+        const musicsById = new Map(musics.map((entry) => [entry.music.id, entry]));
+        const newMusics = newMusicIds.map((id) => musicsById.get(id as string)!);
+
+        setMusics(newMusics);
+
+        playlistService.reorderPlaylistMusics(playlistId, newMusicIds as string[])
+            .catch((error) => {
+                console.error(error);
+                setMusics(previousMusics);
+            });
+    }
+
     if (!playlist) return null
 
     return (
@@ -30,8 +60,8 @@ export default function PlaylistScreen() {
                 </div>
             </div>
             <div className="pl-4 flex w-full justify-start items-center gap-3">
-                {playlist.musics && playlist.musics.length > 0 && (
-                    <PlaylistPlayButton musicId={playlist.musics[0].music.id}
+                {musics.length > 0 && (
+                    <PlaylistPlayButton musicId={musics[0].music.id}
                     playlistId={playlist.id} />
                 )}
                 <PlaylistOptionsButton
@@ -47,19 +77,22 @@ export default function PlaylistScreen() {
                 <LuClock3 className="mx-auto"/>
                 <div className="col-span-6 border-b border-[#4E4E4E] mt-2"/>
             </div>
+            <DragDropProvider onDragEnd={handleDragEnd}>
             <div className="flex flex-col w-full pb-3 px-5">
                 <div className="flex flex-col">
-                    {playlist.musics && playlist.musics.length > 0 ? (
-                        playlist.musics.map(({ position, music }) => (
-                            <MusicCard
+                    {musics.length > 0 ? (
+                        musics.map(({ music }, index) => (
+                            <SortableMusicCard
                                 key={music.id}
+                                id={music.id}
+                                index={index}
                                 musicId={music.id}
                                 title={music.title}
                                 albumId={music.albumId}
                                 duration={music.duration}
                                 artist={music.artistId}
                                 explicit={music.explicit}
-                                trackNumber={position + 1}
+                                trackNumber={index + 1}
                                 playlistId={playlistId}
                             />
                         ))
@@ -71,6 +104,7 @@ export default function PlaylistScreen() {
                     )}
                 </div>
             </div>
+            </DragDropProvider>
         </div>
     )
 }

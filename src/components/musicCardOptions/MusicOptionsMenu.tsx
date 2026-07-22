@@ -106,8 +106,8 @@ export function MusicOptionsMenu({artistName, albumId, artistId, musicId, playli
                 <BiDisc/>
                 Ir para album</Link>
 
-            <div ref={containerRef} className="relative">
-                <button 
+            <div className="relative">
+                <button
                 onClick={handleOpenCredits}
                 className="flex items-center text-[#B3B3B3] hover:text-white
                 cursor-pointer gap-2">

@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import type { SearchResults, SearchResultItem } from "../../types/SearchResults";
 import { emptySearchResults } from "../../types/SearchResults";
@@ -14,6 +15,16 @@ import { PlaylistResultCard } from "../../components/playlistCards/PlaylistResul
     | { type: "artist"; data: SearchResultItem }
     | { type: "album"; data: SearchResultItem }
     | { type: "playlist"; data: SearchResultItem };
+
+type FilterType = "all" | "music" | "artist" | "album" | "playlist";
+
+const FILTERS: { type: FilterType; label: string }[] = [
+    { type: "all", label: "Tudo" },
+    { type: "music", label: "Músicas" },
+    { type: "album", label: "Álbuns" },
+    { type: "playlist", label: "Playlists" },
+    { type: "artist", label: "Artistas" },
+];
 
 function getQuickResults(results: SearchResults, limit: number): QuickResult[] {
     const buckets: QuickResult[][] = [
@@ -33,6 +44,17 @@ function getQuickResults(results: SearchResults, limit: number): QuickResult[] {
         index++;
     }
     return quickresults;
+}
+
+function getResultsByType(results: SearchResults, type: Exclude<FilterType, "all">, limit: number): QuickResult[] {
+    const buckets: Record<Exclude<FilterType, "all">, QuickResult[]> = {
+        music: results.musics.map((data): QuickResult => ({ type: "music", data })),
+        artist: results.artists.map((data): QuickResult => ({ type: "artist", data })),
+        album: results.albums.map((data): QuickResult => ({ type: "album", data })),
+        playlist: results.playlists.map((data): QuickResult => ({ type: "playlist", data })),
+    };
+
+    return buckets[type].slice(0, limit);
 }
 
 function renderQuickResult(item: QuickResult) {
@@ -61,13 +83,16 @@ export default function SearchScreen(){
 
     const [searchParams] = useSearchParams();
     const query = searchParams.get("q") ?? "";
+    const [activeFilter, setActiveFilter] = useState<FilterType>("all");
 
     const { data: results } = useFetch(
         () => (query.trim().length === 0 ? Promise.resolve(emptySearchResults) : searchService.search(query)),
         [query]
     );
 
-    const quickResults = getQuickResults(results ?? emptySearchResults, 10);
+    const quickResults = activeFilter === "all"
+        ? getQuickResults(results ?? emptySearchResults, 10)
+        : getResultsByType(results ?? emptySearchResults, activeFilter, 20);
 
     return(
         <div className="h-full w-full flex flex-col items-start
@@ -76,10 +101,14 @@ export default function SearchScreen(){
                 bg-[#121212]
                 scrollbar-custom overflow-y-auto px-4 py-5">
             <div className="flex items-center gap-x-2">
-                <SelectionButton label="Tudo"/>
-                <SelectionButton label="Músicas"/>
-                <SelectionButton label="Álbuns"/>
-                <SelectionButton label="Playlists"/>
+                {FILTERS.map(({ type, label }) => (
+                    <SelectionButton
+                        key={type}
+                        label={label}
+                        selected={activeFilter === type}
+                        onClick={() => setActiveFilter(type)}
+                    />
+                ))}
             </div>
             {quickResults.length === 0 ? (
                 <p className="text-gray-400 text-sm p-3">Nenhum resultado encontrado</p>

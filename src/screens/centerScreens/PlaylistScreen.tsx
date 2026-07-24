@@ -107,7 +107,7 @@ export default function PlaylistScreen() {
                                 title={music.title}
                                 albumId={music.albumId}
                                 duration={music.duration}
-                                artist={music.artistId}
+                                artistId={music.artistId}
                                 explicit={music.explicit}
                                 trackNumber={index + 1}
                                 playlistId={playlistId}

@@ -60,7 +60,7 @@ export default function UserScreen({imageUrl, name}:UserScreenProps) {
                                 key={song.id}
                                 musicId={song.id}
                                 title={song.title}
-                                artist={(song.artistId)}
+                                artistId={song.artistId}
                                 trackNumber={index + 1}
                                 albumId={song.albumId}
                                 duration={song.duration}

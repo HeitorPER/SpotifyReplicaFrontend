@@ -9,7 +9,8 @@ import { useEffect, useRef, useState, type Ref } from "react"
 
 export interface MusicCardProps {
     title: string
-    artist: string
+    artistId: string
+    artistName?: string
     musicId: string
     explicit?: boolean
     imageUrl?: string
@@ -20,7 +21,7 @@ export interface MusicCardProps {
     isDragging?: boolean
 }
 
-export function MusicCard({ ref, duration, title, artist, musicId, explicit = false, imageUrl, trackNumber, playlistId, albumId, isDragging = false }: MusicCardProps & { ref?: Ref<HTMLButtonElement> }) {
+export function MusicCard({ ref, duration, title, artistId, artistName, musicId, explicit = false, imageUrl, trackNumber, playlistId, albumId, isDragging = false }: MusicCardProps & { ref?: Ref<HTMLButtonElement> }) {
     const { play } = usePlayer();
     const [contextMenu, setContextMenu] = useState<{ x: number; y: number } | null>(null);
     const contextMenuRef = useRef<HTMLDivElement>(null);
@@ -47,8 +48,8 @@ export function MusicCard({ ref, duration, title, artist, musicId, explicit = fa
     }, []);
 
     const { data: artistData } = useFetch(
-            () => artist ? artistService.getArtistById(artist) : Promise.resolve(null),
-            [artist]
+            () => artistId ? artistService.getArtistById(artistId) : Promise.resolve(null),
+            [artistId]
         );
 
         const { data: albumData } = useFetch(
@@ -80,7 +81,7 @@ export function MusicCard({ ref, duration, title, artist, musicId, explicit = fa
                                 <span className="text-[10px] bg-gray-500 text-gray-200 px-1 rounded shrink-0">E</span>
                             )}
                         </div>
-                        <h2 className="text-gray-400 text-xs truncate">Música • {artistData?.name || artist}</h2>
+                        <h2 className="text-gray-400 text-xs truncate">Música • {artistData?.name || artistName}</h2>
                     </div>
                 </div>
                 <h2 className="text-gray-400 text-xs truncate">{albumData?.title}</h2>
@@ -88,8 +89,8 @@ export function MusicCard({ ref, duration, title, artist, musicId, explicit = fa
                 {timeconverter(duration)}
                 <div onClick={(event) => event.stopPropagation()} className="justify-self-center">
                     <MusicOptionsButton
-                    artistId={artist}
-                    artistName={artistData?.name || artist}
+                    artistId={artistId}
+                    artistName={artistData?.name || artistName || ""}
                     albumId={albumId}
                     musicId={musicId}
                     playlistId={playlistId}/>
@@ -104,9 +105,9 @@ export function MusicCard({ ref, duration, title, artist, musicId, explicit = fa
                     <MusicOptionsMenu
                     musicId={musicId}
                     albumId={albumId}
-                    artistName={artistData?.name || artist}
+                    artistName={artistData?.name || artistName || ""}
                     playlistId={playlistId}
-                    artistId={artist}
+                    artistId={artistId}
                     onClose={() => setContextMenu(null)}
                     onSelect={() => setContextMenu(null)}/>
                 </div>
